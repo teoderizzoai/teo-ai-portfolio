@@ -38,7 +38,7 @@ const Hero = () => {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button size="lg" className="group shadow-glow hover:shadow-glow/80 transition-all duration-300">
                 <Download className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                 Download CV
@@ -50,7 +50,7 @@ const Hero = () => {
             </div>
 
             {/* Social Links */}
-            <div className="flex gap-4 justify-center lg:justify-start">
+            <div className="flex gap-4 justify-center">
               <a 
                 href="https://github.com/teoderizzoai" 
                 target="_blank" 
