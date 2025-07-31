@@ -47,7 +47,7 @@ const Contact = () => {
     <section id="contact" className="py-20 bg-section-bg">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
             Let's Connect
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -149,7 +149,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="bg-input border-border/50 focus:border-primary"
+                    className="bg-background border-border/50 focus:border-primary"
                   />
                 </div>
                 
@@ -162,7 +162,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="bg-input border-border/50 focus:border-primary"
+                    className="bg-background border-border/50 focus:border-primary"
                   />
                 </div>
               </div>
@@ -176,7 +176,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="e.g., AI Project Collaboration"
-                  className="bg-input border-border/50 focus:border-primary"
+                  className="bg-background border-border/50 focus:border-primary"
                 />
               </div>
               
@@ -190,7 +190,7 @@ const Contact = () => {
                   required
                   rows={6}
                   placeholder="Tell me about your project or opportunity..."
-                  className="bg-input border-border/50 focus:border-primary resize-none"
+                  className="bg-background border-border/50 focus:border-primary resize-none"
                 />
               </div>
               

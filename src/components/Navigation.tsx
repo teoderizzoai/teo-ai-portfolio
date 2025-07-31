@@ -46,7 +46,7 @@ const Navigation = () => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="text-xl font-bold bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent hover:scale-105 transition-transform"
+            className="text-xl font-bold text-primary hover:scale-105 transition-transform"
           >
             MDR
           </a>

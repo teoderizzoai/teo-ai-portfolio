@@ -3,30 +3,27 @@ import { Download, Github, Linkedin, Mail } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-hero-gradient bg-leaf-pattern overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/5"></div>
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      {/* Blurred background image */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundImage: 'url("https://images.unsplash.com/photo-1475257026007-0753d5429e10?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          filter: 'blur(8px)'
+        }}
+      ></div>
+      
+      {/* Background overlay with fade to bottom */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background"></div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          {/* Profile Image */}
-          <div className="flex-shrink-0">
-            <div className="relative">
-              <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-glow border-4 border-primary/20">
-                <img 
-                  src="/lovable-uploads/318fc86a-9acb-40a5-b213-956830a52039.png" 
-                  alt="Matteo De Rizzo"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {/* Floating decoration */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl"></div>
-            </div>
-          </div>
-
+        <div className="text-center max-w-4xl mx-auto">
           {/* Hero Content */}
-          <div className="flex-1 text-center lg:text-left max-w-2xl">
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent">
+          <div className="flex-1 text-center max-w-3xl mx-auto">
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-primary">
               Matteo De Rizzo
             </h1>
             

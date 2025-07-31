@@ -71,10 +71,10 @@ const skillCategories: SkillCategory[] = [
 ];
 
 const languages = [
-  { name: "English", level: "Fluent", flag: "🇬🇧" },
-  { name: "Italian", level: "Native", flag: "🇮🇹" },
-  { name: "Czech", level: "Fluent", flag: "🇨🇿" },
-  { name: "Python", level: "Fluent", flag: "🐍" }
+  { name: "English", level: "Fluent", flag: "gb" },
+  { name: "Italian", level: "Native", flag: "it" },
+  { name: "Czech", level: "Fluent", flag: "cz" },
+  { name: "Python", level: "Fluent", flag: "python" }
 ];
 
 const SkillBar = ({ skill }: { skill: { name: string; level: number } }) => {
@@ -86,7 +86,7 @@ const SkillBar = ({ skill }: { skill: { name: string; level: number } }) => {
       </div>
       <div className="w-full bg-muted rounded-full h-2">
         <div 
-          className="bg-gradient-to-r from-primary to-primary/80 h-2 rounded-full transition-all duration-1000 ease-out"
+                          className="bg-primary h-2 rounded-full transition-all duration-1000 ease-out"
           style={{ width: `${skill.level}%` }}
         />
       </div>
@@ -99,7 +99,7 @@ const Skills = () => {
     <section id="skills" className="py-20 bg-section-bg">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
             Skills & Expertise
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -135,7 +135,13 @@ const Skills = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {languages.map((lang, index) => (
               <div key={index} className="text-center p-4 bg-muted/30 rounded-lg hover:bg-primary/5 transition-colors">
-                <div className="text-3xl mb-2">{lang.flag}</div>
+                <div className="text-3xl mb-2">
+                  {lang.flag === "python" ? (
+                    <span className="text-3xl">🐍</span>
+                  ) : (
+                    <span className={`fi fi-${lang.flag}`} style={{ fontSize: '2rem' }}></span>
+                  )}
+                </div>
                 <div className="font-medium text-foreground">{lang.name}</div>
                 <div className="text-sm text-muted-foreground">{lang.level}</div>
               </div>

@@ -8,7 +8,7 @@ interface ExperienceItem {
   location: string;
   period: string;
   type: "work" | "education";
-  description: string[];
+  description: (string | { text: string; link: string; label: string })[];
   skills?: string[];
 }
 
@@ -62,7 +62,8 @@ const education: ExperienceItem[] = [
     type: "education",
     description: [
       "Thesis: Multi-layered neural network modeling of Epilepsy mechanisms using simulation tools",
-      "Published at the AIAI 2025 Conference and available at GitHub Repository",
+      { text: "Published at the ", link: "https://ifipaiai.org/", label: "AIAI 2025 Conference" },
+      { text: " and available at ", link: "https://github.com/teoderizzoai/Masters-Thesis", label: "GitHub Repository" },
       "Specialized in Machine Learning, Deep Learning, NLP, and Brain-Computer Interfaces"
     ],
     skills: ["Neural Networks", "Epilepsy Research", "Simulation", "Academic Research", "Deep Learning"]
@@ -121,7 +122,19 @@ const ExperienceCard = ({ item }: { item: ExperienceItem }) => {
         <div className="space-y-2">
           {item.description.map((desc, index) => (
             <p key={index} className="text-muted-foreground leading-relaxed text-sm">
-              • {desc}
+              • {typeof desc === 'string' ? desc : (
+                <>
+                  {desc.text}
+                  <a 
+                    href={desc.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 underline transition-colors"
+                  >
+                    {desc.label}
+                  </a>
+                </>
+              )}
             </p>
           ))}
         </div>
@@ -150,7 +163,7 @@ const Experience = () => {
     <section id="experience" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary">
             Experience & Education
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
