@@ -39,12 +39,36 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button size="lg" className="group shadow-glow hover:shadow-glow/80 transition-all duration-300">
+              <Button 
+                size="lg" 
+                className="group shadow-glow hover:shadow-glow/80 transition-all duration-300"
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = '/matteo-de-rizzo-cv.pdf';
+                  link.download = 'matteo-de-rizzo-cv.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+              >
                 <Download className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                 Download CV
               </Button>
               
-              <Button variant="outline" size="lg" className="border-primary/30 hover:border-primary hover:bg-primary/10">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="border-primary/30 hover:border-primary hover:bg-primary/10"
+                onClick={() => {
+                  const projectsSection = document.getElementById('projects');
+                  if (projectsSection) {
+                    projectsSection.scrollIntoView({ 
+                      behavior: 'smooth',
+                      block: 'start'
+                    });
+                  }
+                }}
+              >
                 View Projects
               </Button>
             </div>
