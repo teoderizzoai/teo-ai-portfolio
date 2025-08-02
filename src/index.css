@@ -22,9 +22,9 @@ All colors MUST be HSL.
     --primary: 183 100% 35%; /* #00ADB5 */
     --primary-foreground: 0 0% 93%; /* #EEEEEE */
 
-    /* Secondary using the medium blue-gray */
-    --secondary: 220 13% 22%; /* #393E46 */
-    --secondary-foreground: 0 0% 93%; /* #EEEEEE */
+    /* Secondary using whitish color */
+    --secondary: 0 0% 96%; /* #F5F5F5 */
+    --secondary-foreground: 220 13% 16%; /* #222831 */
 
     --muted: 220 13% 22%; /* #393E46 */
     --muted-foreground: 0 0% 70%;
