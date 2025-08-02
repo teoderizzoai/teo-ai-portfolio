@@ -22,16 +22,16 @@ All colors MUST be HSL.
     --primary: 0 0% 95%; /* #F2F2F2 */
     --primary-foreground: 0 0% 8%; /* #141414 */
 
-    /* Secondary using dark gray */
+    /* Secondary using the medium blue-gray */
     --secondary: 220 13% 22%; /* #393E46 */
     --secondary-foreground: 0 0% 93%; /* #EEEEEE */
 
     --muted: 220 13% 22%; /* #393E46 */
     --muted-foreground: 0 0% 70%;
 
-    /* Accent using whitish */
-    --accent: 0 0% 95%; /* #F2F2F2 */
-    --accent-foreground: 0 0% 8%; /* #141414 */
+    /* Accent using the teal */
+    --accent: 183 100% 35%; /* #00ADB5 */
+    --accent-foreground: 0 0% 93%; /* #EEEEEE */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 93%; /* #EEEEEE */
