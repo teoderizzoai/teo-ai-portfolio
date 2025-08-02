@@ -15,7 +15,7 @@ const skillCategories: SkillCategory[] = [
       { name: "Python", level: 95 },
       { name: "SQL", level: 85 },
       { name: "R", level: 75 },
-      { name: "MATLAB", level: 70 }
+      { name: "JavaScript", level: 70 }
     ]
   },
   {
