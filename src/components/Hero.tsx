@@ -31,9 +31,10 @@ const Hero = () => {
               AI & Data Science Specialist
             </p>
             
+            <p className="text-lg lg:text-xl text-muted-foreground mb-4 leading-relaxed">
+              Turning data into insight with the power of AI.
+            </p>
             <p className="text-lg lg:text-xl text-muted-foreground mb-8 leading-relaxed">
-              Turning data into insight with the power of AI. 
-              <br className="hidden lg:block" />
               Building intelligent systems that make a difference.
             </p>
 

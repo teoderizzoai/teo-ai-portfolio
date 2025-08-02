@@ -123,13 +123,13 @@ const ProjectCard = ({ project }: { project: Project }) => {
           <>
             <button
               onClick={prevImage}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-secondary/80 hover:bg-secondary text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:scale-110 text-lg font-bold"
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:scale-110 text-lg font-bold"
             >
               ‹
             </button>
             <button
               onClick={nextImage}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-secondary/80 hover:bg-secondary text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:scale-110 text-lg font-bold"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:scale-110 text-lg font-bold"
             >
               ›
             </button>
@@ -139,7 +139,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-200 hover:scale-125 ${
-                    index === currentImageIndex ? 'bg-secondary shadow-lg' : 'bg-secondary/60 hover:bg-secondary/80'
+                    index === currentImageIndex ? 'bg-white shadow-lg' : 'bg-white/60 hover:bg-white/80'
                   }`}
                 />
               ))}

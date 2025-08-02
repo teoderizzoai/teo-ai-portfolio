@@ -82,7 +82,6 @@ const SkillBar = ({ skill }: { skill: { name: string; level: number } }) => {
     <div className="space-y-2">
       <div className="flex justify-between items-center">
         <span className="text-sm font-medium text-foreground">{skill.name}</span>
-        <span className="text-xs text-muted-foreground">{skill.level}%</span>
       </div>
       <div className="w-full bg-muted rounded-full h-2">
         <div 

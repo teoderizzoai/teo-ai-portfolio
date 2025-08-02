@@ -73,7 +73,7 @@ const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 max-w-2xl mx-auto">
           <div className="bg-card/50 p-4 rounded-lg border border-border/30">
             <h4 className="font-semibold text-primary mb-2">🎓 Education</h4>
-            <p className="text-sm text-muted-foreground">MSc in Artificial Intelligence<br/>Vrij Universiteit, Amsterdam</p>
+            <p className="text-sm text-muted-foreground">MSc in Artificial Intelligence<br/>BSc in Psychology</p>
           </div>
           
           <div className="bg-card/50 p-4 rounded-lg border border-border/30">
