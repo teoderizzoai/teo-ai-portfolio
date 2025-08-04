@@ -23,6 +23,31 @@ interface Project {
 
 const projects: Project[] = [
   {
+    id: "spotify",
+    title: "Spotify Hit Predictor - 'Will It Hit?'",
+    subtitle: "AI-Powered Music Hit Prediction Platform - Coming Soon",
+    description: "Predict whether your song will become a hit using machine learning and Spotify's audio features (Currently in development)",
+    fullDescription: "Spotify Hit Predictor is an innovative web application that uses machine learning to predict the hit potential of songs based on their audio characteristics. By analyzing features like danceability, energy, valence, and other musical attributes, the platform provides data-driven insights to help artists, producers, and music enthusiasts understand what makes a song successful. The application supports multiple input methods including audio file uploads, CSV data, and Spotify URIs, with real-time processing and detailed analytics. This project is currently in active development.",
+    techStack: ["React", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "Node.js", "Express", "Python", "scikit-learn", "XGBoost", "Spotify API", "OAuth 2.0"],
+    achievements: [
+      "Multiple input methods: audio files, CSV data, and Spotify URIs",
+      "AI-powered predictions with >80% accuracy on test datasets",
+      "Real-time processing with progress indicators",
+      "Modern responsive UI built with shadcn/ui components",
+      "Secure OAuth 2.0 authentication with Spotify",
+      "Comprehensive audio feature analysis and visualization"
+    ],
+    links: [
+      { label: "Live Demo", url: "https://predict-my-hit.lovable.app", icon: <ExternalLink className="h-4 w-4" /> },
+      { label: "GitHub", url: "https://github.com/teoderizzoai/Spotify-Hit-Predictor", icon: <Github className="h-4 w-4" /> }
+    ],
+    images: [
+      "https://i.postimg.cc/yxsnp1Yw/Screenshot-from-2025-08-04-17-40-41.png",
+      "https://i.postimg.cc/kgBsphqX/Screenshot-from-2025-08-04-17-41-17.png"
+    ],
+    category: "AI & Machine Learning"
+  },
+  {
     id: "raglite",
     title: "RAGlite Elden Ring Quiz",
     subtitle: "Personal RAG Project – Self-Initiated",
@@ -42,7 +67,7 @@ const projects: Project[] = [
       { label: "GitHub", url: "https://github.com/teoderizzoai/ERQ_Project", icon: <Github className="h-4 w-4" /> }
     ],
     images: [
-      "https://i.imgur.com/ub0HDLG.png",
+      "https://i.postimg.cc/wTB7XCQM/elden-ring.png",
       "https://i.imgur.com/36Nj2Fn.png"
     ],
     category: "NLP & RAG"
@@ -71,30 +96,6 @@ const projects: Project[] = [
       "https://i.imgur.com/SKobf2V.png"
     ],
     category: "Machine Learning",
-    grade: "9.5/10"
-  },
-  {
-    id: "expedia",
-    title: "Expedia Hotel Booking Prediction (Kaggle Competition)",
-    subtitle: "Data Mining Techniques – VU Amsterdam",
-    description: "Built Learning-to-Rank models for hotel booking prediction using 5M+ data points",
-    fullDescription: "Participated in a Kaggle-style competition using Expedia's hotel booking data to build a ranking model that predicts which hotel a user is most likely to book. As part of a team of three, I was responsible for cleaning and preprocessing over 5 million rows of hotel search and booking data, handling extensive missing values and outliers, engineering advanced features based on user history and price differences, implementing machine learning models using both classification and ranking approaches, and fine-tuning hyperparameters. The project involved creating a relevance scoring system for LambdaMART to better model real-world user behavior, with clicked results having a 62.4% chance of being booked. The final LambdaMART model achieved Kaggle leaderboard rank #67 with NDCG@5 score of 0.38531.",
-    techStack: ["Python", "LightGBM", "LambdaMART", "Pandas", "Learning-to-Rank", "Feature Engineering", "Hyperparameter Tuning", "NDCG Evaluation"],
-    achievements: [
-      "Kaggle leaderboard rank #67 with NDCG@5 = 0.38531",
-      "Processed 5M+ entries with 50 features and 95% class imbalance",
-      "Engineered custom features: pricediff, reviewscorediff, stardiff, histpricediff",
-      "Implemented both LGBM Classifier (baseline) and LambdaMART Ranker",
-      "Handled extensive missing data (up to 90%) in competitor features",
-      "Grade: 9.5/10"
-    ],
-    links: [
-      { label: "GitHub", url: "https://github.com/teoderizzoai/Kaggle-Competition", icon: <Github className="h-4 w-4" /> }
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop&crop=center"
-    ],
-    category: "Data Mining",
     grade: "9.5/10"
   }
 ];
@@ -155,6 +156,11 @@ const ProjectCard = ({ project }: { project: Project }) => {
               <Badge variant="outline" className="text-primary border-primary/30">
                 {project.category}
               </Badge>
+              {project.id === "spotify" && (
+                <Badge variant="destructive" className="bg-orange-500/10 text-orange-500 border-orange-500/30">
+                  Coming Soon
+                </Badge>
+              )}
               {project.grade && (
                 <Badge variant="secondary" className="bg-primary/10 text-primary">
                   Grade: {project.grade}
