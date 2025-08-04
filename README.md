@@ -8,7 +8,25 @@
 
 There are several ways of editing your application.
 
-**Use Lovable**
+**Use Lovable**<h2>Hi 👋, I'm Matteo De Rizzo</h2>
+<h3>AI Master's Graduate | Open to Work 💼</h3>
+
+- 🔬 My [thesis paper](https://github.com/teoderizzoai/Masters-Thesis) on multi-layered model of **epilepsy**, integrating **epigenetics**, was published at the [AIAI Conference](https://ifipaiai.org/)
+
+- 🧠 Passionate about **neural data analysis**, especially using **Python, fMRI, EEG**, and **machine learning**
+
+  
+- 💼 **Open to opportunities** in data science, neurotech, and research  
+  *(Remote or Europe-based — open to relocate)*
+
+- 🖥️ **Worked as IT Manager at HCS Group SRL, Italy**  
+  Helped with backend systems and sensitive healthcare databases, ensuring full compliance with GDPR and medical data regulations.  
+  Developed and maintained ETL pipelines and internal APIs to enable secure, real-time access to patient and operational data.  
+  Streamlined backend integrations, and managed database migrations across clinical platforms.  
+
+- 💼 **Previously interned at [Welpair](https://www.welpai.rs/)**  
+  I contributed to the development of AI tools for behavioral tracking and user engagement in mental health.  
+  I focused on improving data workflows and exploring ML-based personalization strategies.  
 
 Simply visit the [Lovable Project](https://lovable.dev/projects/f0bd455a-8aee-4cb7-b7fb-5a33812d6fae) and start prompting.
 
