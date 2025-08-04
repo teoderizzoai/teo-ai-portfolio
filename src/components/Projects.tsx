@@ -42,6 +42,7 @@ const projects: Project[] = [
       { label: "GitHub", url: "https://github.com/teoderizzoai/Spotify-Hit-Predictor", icon: <Github className="h-4 w-4" /> }
     ],
     images: [
+      "https://i.postimg.cc/DyfbCJn2/Spotify-089b80c169d44fcfa110aebc6801289f.png",
       "https://i.postimg.cc/yxsnp1Yw/Screenshot-from-2025-08-04-17-40-41.png",
       "https://i.postimg.cc/kgBsphqX/Screenshot-from-2025-08-04-17-41-17.png"
     ],
