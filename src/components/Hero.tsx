@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Download, Github, Linkedin, Mail } from "lucide-react";
+import { Download, Mail } from "lucide-react";
+import LinkTreeConnect from "./LinkTreeConnect";
 
 const Hero = () => {
   return (
@@ -75,25 +76,11 @@ const Hero = () => {
             </div>
 
             {/* Social Links */}
-            <div className="flex gap-4 justify-center">
-              <a 
-                href="https://github.com/teoderizzoai" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-3 rounded-full bg-secondary/50 hover:bg-primary/20 transition-colors group"
-              >
-                <Github className="h-6 w-6 group-hover:scale-110 transition-transform" />
-              </a>
+            <div className="flex gap-4 justify-center items-center">
+              {/* Link tree connection - replaces individual GitHub and LinkedIn buttons */}
+              <LinkTreeConnect variant="compact" />
               
-              <a 
-                href="https://www.linkedin.com/in/matteo-de-rizzo-1b853a201/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-3 rounded-full bg-secondary/50 hover:bg-primary/20 transition-colors group"
-              >
-                <Linkedin className="h-6 w-6 group-hover:scale-110 transition-transform" />
-              </a>
-              
+              {/* Keep email as a direct link since it's a direct action */}
               <a 
                 href="mailto:teo.derizzo@gmail.com"
                 className="p-3 rounded-full bg-secondary/50 hover:bg-primary/20 transition-colors group"
