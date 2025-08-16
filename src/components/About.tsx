@@ -36,14 +36,7 @@ const About = () => {
               </p>
               
               <p className="text-muted-foreground leading-relaxed">
-                My                 <a 
-                  href="https://github.com/teoderizzoai/Masters-Thesis" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-primary hover:text-primary/80 underline transition-colors font-semibold"
-                >
-                  thesis paper
-                </a> on multi-layered model of <span className="text-primary font-semibold">epilepsy</span>, integrating <span className="text-primary font-semibold">epigenetics</span>, was published at the{' '}
+                My <span className="text-primary font-semibold">thesis paper</span> on multi-layered model of <span className="text-primary font-semibold">epilepsy</span>, integrating <span className="text-primary font-semibold">epigenetics</span>, was published at the{' '}
                 <a 
                   href="https://ifipaiai.org/" 
                   target="_blank" 
@@ -79,6 +72,21 @@ const About = () => {
           <div className="bg-card/50 p-4 rounded-lg border border-border/30">
             <h4 className="font-semibold text-primary mb-2">📍 Location</h4>
             <p className="text-sm text-muted-foreground">Amsterdam, Netherlands<br/>Open to opportunities</p>
+          </div>
+        </div>
+        
+        {/* Subtle link tree connection */}
+        <div className="mt-8 text-center">
+          <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <span>Find my full thesis and more on</span>
+            <a 
+              href="https://matteo-leaf-links.lovable.app/"
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary/80 underline transition-colors"
+            >
+              my link tree
+            </a>
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, ChevronDown, ChevronUp } from "lucide-react";
+import { ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
+import LinkTreeConnect from "./LinkTreeConnect";
 import { useState } from "react";
 import ragLiteQuiz from "@/assets/raglite-quiz.jpg";
 import pushupPrediction from "@/assets/pushup-prediction.jpg";
@@ -38,8 +39,7 @@ const projects: Project[] = [
       "Comprehensive audio feature analysis and visualization"
     ],
     links: [
-      { label: "Live Demo", url: "https://predict-my-hit.lovable.app", icon: <ExternalLink className="h-4 w-4" /> },
-      { label: "GitHub", url: "https://github.com/teoderizzoai/Spotify-Hit-Predictor", icon: <Github className="h-4 w-4" /> }
+      { label: "Live Demo", url: "https://predict-my-hit.lovable.app", icon: <ExternalLink className="h-4 w-4" /> }
     ],
     images: [
       "https://i.postimg.cc/DyfbCJn2/Spotify-089b80c169d44fcfa110aebc6801289f.png",
@@ -64,8 +64,7 @@ const projects: Project[] = [
       "Item-type filtering for focused quizzes"
     ],
     links: [
-      { label: "Launch the App", url: "https://erqproject-8ykkmud3dzdnzkwjqyggf3.streamlit.app/", icon: <ExternalLink className="h-4 w-4" /> },
-      { label: "GitHub", url: "https://github.com/teoderizzoai/ERQ_Project", icon: <Github className="h-4 w-4" /> }
+      { label: "Launch the App", url: "https://erqproject-8ykkmud3dzdnzkwjqyggf3.streamlit.app/", icon: <ExternalLink className="h-4 w-4" /> }
     ],
     images: [
       "https://i.postimg.cc/wTB7XCQM/elden-ring.png",
@@ -89,7 +88,7 @@ const projects: Project[] = [
       "Statistical evaluation using ANOVA and Bonferroni correction"
     ],
     links: [
-      { label: "GitHub", url: "https://github.com/teoderizzoai/Push-Up-Prediction", icon: <Github className="h-4 w-4" /> }
+      { label: "View Project", url: "#", icon: <ExternalLink className="h-4 w-4" /> }
     ],
     images: [
       "https://i.imgur.com/rbwdAzC.png",
@@ -277,6 +276,19 @@ const Projects = () => {
           {projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
+        </div>
+        
+        {/* Link tree connection for full project code */}
+        <div className="mt-16 text-center">
+          <div className="max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-foreground mb-4">
+              Want to see the full code?
+            </h3>
+            <p className="text-muted-foreground mb-6">
+              All project repositories, along with my GitHub, LinkedIn, CV, and portfolio are available through my link tree
+            </p>
+            <LinkTreeConnect variant="default" />
+          </div>
         </div>
       </div>
     </section>

@@ -147,6 +147,21 @@ const Skills = () => {
             ))}
           </div>
         </Card>
+        
+        {/* Subtle link tree connection */}
+        <div className="mt-12 text-center">
+          <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <span>See my projects and code examples on</span>
+            <a 
+              href="https://matteo-leaf-links.lovable.app/"
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary/80 underline transition-colors"
+            >
+              my link tree
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

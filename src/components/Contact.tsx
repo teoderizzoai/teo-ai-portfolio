@@ -3,9 +3,10 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, MapPin, Github, Linkedin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import LinkTreeConnect from "./LinkTreeConnect";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -113,25 +114,8 @@ const Contact = () => {
             {/* Social Links */}
             <div>
               <h4 className="font-semibold text-foreground mb-4">Connect on Social</h4>
-              <div className="flex gap-4">
-                <a 
-                  href="https://github.com/teoderizzoai" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-4 bg-card/50 rounded-lg border border-border/30 hover:border-primary/50 hover:bg-primary/5 transition-colors group"
-                >
-                  <Github className="h-6 w-6 text-foreground group-hover:text-primary transition-colors" />
-                </a>
-                
-                <a 
-                  href="https://www.linkedin.com/in/matteo-de-rizzo-1b853a201/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-4 bg-card/50 rounded-lg border border-border/30 hover:border-primary/50 hover:bg-primary/5 transition-colors group"
-                >
-                  <Linkedin className="h-6 w-6 text-foreground group-hover:text-primary transition-colors" />
-                </a>
-              </div>
+              {/* Replace individual GitHub and LinkedIn buttons with link tree connection */}
+              <LinkTreeConnect variant="card" showTitle={false} />
             </div>
           </div>
 

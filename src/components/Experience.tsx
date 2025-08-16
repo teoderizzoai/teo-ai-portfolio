@@ -63,7 +63,7 @@ const education: ExperienceItem[] = [
     description: [
       "Thesis: Multi-layered neural network modeling of Epilepsy mechanisms using simulation tools",
       { text: "Published at the ", link: "https://ifipaiai.org/", label: "AIAI 2025 Conference" },
-      { text: " and available at ", link: "https://github.com/teoderizzoai/Masters-Thesis", label: "GitHub Repository" },
+      { text: " and available through ", link: "https://matteo-leaf-links.lovable.app/", label: "my link tree" },
       "Specialized in Machine Learning, Deep Learning, NLP, and Brain-Computer Interfaces"
     ],
     skills: ["Neural Networks", "Epilepsy Research", "Simulation", "Academic Research", "Deep Learning"]
@@ -200,6 +200,21 @@ const Experience = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+        
+        {/* Subtle link tree connection */}
+        <div className="mt-16 text-center">
+          <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <span>Find detailed project examples and my thesis on</span>
+            <a 
+              href="https://matteo-leaf-links.lovable.app/"
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary/80 underline transition-colors"
+            >
+              my link tree
+            </a>
           </div>
         </div>
       </div>
