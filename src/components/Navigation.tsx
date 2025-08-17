@@ -70,6 +70,14 @@ const Navigation = () => {
             <Button 
               size="sm" 
               className="shadow-glow hover:shadow-glow/80 transition-all duration-300 group"
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = '/Matteo De Rizzo CV.pdf';
+                link.download = 'Matteo De Rizzo CV.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
             >
               <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
               CV
@@ -106,6 +114,14 @@ const Navigation = () => {
               <Button 
                 size="sm" 
                 className="w-fit shadow-glow hover:shadow-glow/80 transition-all duration-300 group"
+                onClick={() => {
+                  const link = document.createElement('a');
+                  link.href = '/Matteo De Rizzo CV.pdf';
+                  link.download = 'Matteo De Rizzo CV.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
               >
                 <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
                 Download CV

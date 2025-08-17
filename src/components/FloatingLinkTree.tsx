@@ -4,7 +4,7 @@ import { Link, ExternalLink } from "lucide-react";
 // This component creates a floating button that's always visible on the page
 // providing easy access to the link tree from anywhere
 const FloatingLinkTree = () => {
-  const linkTreeUrl = "https://matteo-leaf-links.lovable.app/";
+  const linkTreeUrl = "https://links.matteoderizzo.site";
   
   return (
     <div className="fixed bottom-6 right-6 z-50">

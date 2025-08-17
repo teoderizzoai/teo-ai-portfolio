@@ -14,7 +14,7 @@ const LinkTreeConnect = ({
   showTitle?: boolean;
 }) => {
   // The main link tree URL that contains all social links
-  const linkTreeUrl = "https://matteo-leaf-links.lovable.app/";
+  const linkTreeUrl = "https://links.matteoderizzo.site";
   
   // Different variants for different use cases throughout the site
   switch (variant) {
