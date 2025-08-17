@@ -6,7 +6,6 @@ import { componentTagger } from "lovable-tagger";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   // Set base path for GitHub Pages deployment
-  // Change this to your actual repository name if different
   base: "/teo-ai-portfolio/",
   
   server: {
