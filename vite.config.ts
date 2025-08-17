@@ -5,9 +5,8 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // Set base path for GitHub Pages deployment only in production
-  // Use root path for local development
-  base: mode === 'production' ? "/teo-ai-portfolio/" : "/",
+  // Set base path for deployment - use root path for Vercel
+  base: "/",
   
   server: {
     host: "::",
