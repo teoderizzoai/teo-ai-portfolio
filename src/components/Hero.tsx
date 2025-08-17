@@ -24,21 +24,6 @@ const Hero = () => {
         <div className="text-center max-w-4xl mx-auto">
           {/* Hero Content */}
           <div className="flex-1 text-center max-w-3xl mx-auto">
-            {/* Profile Photo */}
-            <div className="flex justify-center mb-8">
-              <div className="relative">
-                <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden shadow-glow border-4 border-primary/20">
-                  <img 
-                    src="/profile-photo.png" 
-                    alt="Matteo De Rizzo"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                {/* Floating decoration */}
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary/10 rounded-full blur-lg"></div>
-              </div>
-            </div>
-            
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-primary">
               Matteo De Rizzo
             </h1>

@@ -12,7 +12,7 @@ const FloatingLinkTree = () => {
       <Button
         asChild
         size="lg"
-        className="rounded-full w-16 h-16 p-0 shadow-glow hover:shadow-glow/80 transition-all duration-300 bg-primary hover:bg-primary/90 text-white group"
+        className="rounded-full w-16 h-16 p-0 shadow-glow hover:shadow-glow/80 transition-all duration-300 bg-primary hover:bg-primary/90 text-primary-foreground group"
         title="Connect with me on all platforms"
       >
         <a 
