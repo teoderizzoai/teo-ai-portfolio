@@ -5,6 +5,10 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // Set base path for GitHub Pages deployment
+  // Change this to your actual repository name if different
+  base: "/teo-ai-portfolio/",
+  
   server: {
     host: "::",
     port: 8080,
@@ -17,6 +21,16 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  // Ensure proper build output for GitHub Pages
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
+    rollupOptions: {
+      output: {
+        manualChunks: undefined, // Disable manual chunking for better GitHub Pages compatibility
+      },
     },
   },
 }));

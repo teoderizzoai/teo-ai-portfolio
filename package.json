@@ -8,7 +8,8 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && echo 'Build complete! Push the dist folder to your gh-pages branch or deploy to GitHub Pages.'"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
