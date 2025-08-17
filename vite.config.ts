@@ -5,8 +5,8 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // Set base path for GitHub Pages deployment
-  base: "/teo-ai-portfolio/",
+  // Temporarily removed base path for local testing
+  // base: "/teo-ai-portfolio/",
   
   server: {
     host: "::",
@@ -27,9 +27,21 @@ export default defineConfig(({ mode }) => ({
     outDir: "dist",
     assetsDir: "assets",
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+      },
       output: {
         manualChunks: undefined, // Disable manual chunking for better GitHub Pages compatibility
+        entryFileNames: 'assets/[name].mjs', // Use .mjs extension for better MIME type recognition
+        chunkFileNames: 'assets/[name].mjs',
+        assetFileNames: 'assets/[name].[ext]',
       },
     },
+    // Ensure proper asset handling
+    assetsInlineLimit: 0,
+    chunkSizeWarningLimit: 1000,
+    // Force proper module type
+    target: 'esnext',
+    modulePreload: false,
   },
 }));
