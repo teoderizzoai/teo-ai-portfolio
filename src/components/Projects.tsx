@@ -23,6 +23,73 @@ interface Project {
 }
 
 const projects: Project[] = [
+  // Newest work first so recruiters immediately see current capabilities.
+  {
+    id: "bar-warehouse-system",
+    title: "Bar Warehouse Database System",
+    subtitle: "Private Production System - Inventory & Operations",
+    description: "Full warehouse and stock management platform for a bar, focused on reliable inventory tracking and daily operations.",
+    fullDescription: "I designed and developed a complete warehouse database system for a bar, covering core workflows like stock intake, consumption tracking, corrections, and operational visibility. The architecture combines a Supabase backend with SQL-driven data modeling and a React frontend for day-to-day usability. Because this is production-related and security-sensitive, the source code is private, but the project demonstrates strong full-stack ownership across schema design, business logic, and user interface implementation.",
+    techStack: ["Supabase", "PostgreSQL", "SQL", "React", "TypeScript"],
+    achievements: [
+      "Designed a relational schema tailored to real inventory and warehouse workflows",
+      "Implemented secure data operations with production-focused access control",
+      "Built clear operational views to support stock decisions and reduce manual errors",
+      "Connected SQL-centered backend logic with a practical React interface"
+    ],
+    // Private codebase by design (security and business reasons).
+    links: [],
+    // Using a neutral placeholder image until a public screenshot is available.
+    images: [
+      "https://placehold.co/1200x675/111827/E5E7EB?text=Bar+Warehouse+Database+System"
+    ],
+    category: "Full-Stack Systems"
+  },
+  {
+    id: "chloe-agent",
+    title: "Chloe - Autonomous AI Agent",
+    subtitle: "Long-Running Agent with Dynamic Personality Routines",
+    description: "An AI agent that runs autonomous routines, evolves behavioral patterns, and proactively messages based on context and boredom signals.",
+    fullDescription: "Chloe is an autonomous AI agent project where I explore persistent behavior, routine scheduling, and personality development over time. The agent can self-initiate interactions (for example when idle or 'bored'), run independent research tasks, and maintain a graph of interests to influence future behavior. This project blends LLM orchestration with behavioral system design, aiming for an assistant that feels increasingly adaptive rather than purely reactive.",
+    techStack: ["LLM Orchestration", "Autonomous Agents", "Task Scheduling", "Behavior Modeling", "Knowledge Graph Concepts"],
+    achievements: [
+      "Implemented autonomous routines that trigger without direct user prompts",
+      "Designed boredom/idle-state behaviors for proactive communication",
+      "Built interest-tracking logic to shape future agent decisions",
+      "Explored personality consistency over repeated long-running interactions"
+    ],
+    // Public demo link can be added later when/if available.
+    links: [],
+    // Using absolute paths from /public so Vite serves them directly in production.
+    // Keeping the exact filenames you provided (including UUID-style names).
+    images: [
+      "/Chloe_Texting.png",
+      "/{663BB5AB-3A5C-4860-9EB3-08307D33A527}.png",
+      "/{86B6F70E-CA25-4B99-BE04-D4870AE6E219}.png"
+    ],
+    category: "AI Agents"
+  },
+  {
+    id: "get-my-life-in-order",
+    title: "Get My Life in Order",
+    subtitle: "Visual Task Verification Pipeline with LLMs",
+    description: "A productivity pipeline where task photos are analyzed by an LLM; validated completion unlocks Steam access.",
+    fullDescription: "Get My Life in Order is a behavior-first automation system that connects task completion to real rewards. The pipeline takes photos as proof-of-work, uses an LLM to describe and evaluate the scene, and determines whether the task meets a quality threshold. If the result is good enough, it triggers an unlock flow for my Steam app. The project combines computer-vision-adjacent prompting, automated decision logic, and motivational design to turn goals into actionable routines.",
+    techStack: ["LLM Vision Workflows", "Prompt Engineering", "Automation Pipelines", "Rule-Based Validation", "App Access Control"],
+    achievements: [
+      "Built an end-to-end photo-to-decision task validation pipeline",
+      "Added quality-threshold logic to avoid superficial task completion",
+      "Integrated automated unlock behavior as a reinforcement mechanism",
+      "Designed the system around habit-building and accountability"
+    ],
+    links: [],
+    // Real mobile screenshot from the /public folder.
+    // Spaces are valid in URLs when served from static assets in this setup.
+    images: [
+      "/WhatsApp Image 2026-04-14 at 2.20.22 PM.jpeg"
+    ],
+    category: "AI Automation"
+  },
   {
     id: "spotify",
     title: "Spotify Hit Predictor - 'Will It Hit?'",
