@@ -58,8 +58,10 @@ const projects: Project[] = [
       "Built interest-tracking logic to shape future agent decisions",
       "Explored personality consistency over repeated long-running interactions"
     ],
-    // Public demo link can be added later when/if available.
-    links: [],
+    // Public repository for code and architecture details.
+    links: [
+      { label: "GitHub Repo", url: "https://github.com/teoderizzoai/Chloe", icon: <ExternalLink className="h-4 w-4" /> }
+    ],
     // Using absolute paths from /public so Vite serves them directly in production.
     // Keeping the exact filenames you provided (including UUID-style names).
     images: [
@@ -82,7 +84,10 @@ const projects: Project[] = [
       "Integrated automated unlock behavior as a reinforcement mechanism",
       "Designed the system around habit-building and accountability"
     ],
-    links: [],
+    // Public repository including app + PC monitor implementation.
+    links: [
+      { label: "GitHub Repo", url: "https://github.com/teoderizzoai/GetMyLifeInOrder", icon: <ExternalLink className="h-4 w-4" /> }
+    ],
     // Real mobile screenshot from the /public folder.
     // Spaces are valid in URLs when served from static assets in this setup.
     images: [
