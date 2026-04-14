@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  // Ensure proper build output for GitHub Pages
+  // Optimized build configuration for Vercel
   build: {
     outDir: "dist",
     assetsDir: "assets",
@@ -31,17 +31,15 @@ export default defineConfig(({ mode }) => ({
         main: path.resolve(__dirname, 'index.html'),
       },
       output: {
-        manualChunks: undefined, // Disable manual chunking for better GitHub Pages compatibility
-        entryFileNames: 'assets/[name].mjs', // Use .mjs extension for better MIME type recognition
-        chunkFileNames: 'assets/[name].mjs',
-        assetFileNames: 'assets/[name].[ext]',
+        // Simplified output configuration for Vercel
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]',
       },
     },
-    // Ensure proper asset handling
-    assetsInlineLimit: 0,
-    chunkSizeWarningLimit: 1000,
-    // Force proper module type
+    // Vercel-optimized settings
     target: 'esnext',
-    modulePreload: false,
+    minify: 'esbuild',
+    sourcemap: false,
   },
 }));
