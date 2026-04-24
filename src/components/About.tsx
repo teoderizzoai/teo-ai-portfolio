@@ -16,7 +16,7 @@ const About = () => {
                 <div className="relative">
                   <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-glow border-4 border-primary/20">
                     <img 
-                      src="/profile-photo.png" 
+                      src="https://i.ibb.co/vvCCjMpm/Profile-1.jpg" 
                       alt="Matteo De Rizzo"
                       className="w-full h-full object-cover"
                     />
