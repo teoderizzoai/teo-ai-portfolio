@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Technical Architecture Deck · Enterprise RAG · National Tax Authority</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --navy:    #0d1017;
+  --navy2:   #111822;
+  --navy3:   #171f2e;
+  --light:   #ffffff;
+  --light2:  #f0f6fc;
+  --light3:  #e8f2fa;
+  --text-dark:  #0a0f1a;
+  --text-body:  #2d3a4a;
+  --text-muted: #526070;
+  --text-dim:   #9aaabb;
+  --cyan:    #1aabdf;
+  --cyan2:   #0e8ec0;
+  --cyan-lt: rgba(26,171,223,0.10);
+  --cyan-br: rgba(26,171,223,0.18);
+  --teal:    #5ecfb0;
+  --blue:    #4f9eff;
+  --red:     #d97070;
+  --amber:   #e8a430;
+  --gold:    #1aabdf;
+  --gold2:   #5cc8f0;
+  --white:   #f0f4f8;
+  --muted:   #8a9ab0;
+  --dim:     #4a5568;
+  --border:  rgba(26,171,223,0.18);
+  --border2: rgba(255,255,255,0.07);
+  --display: 'Manrope', sans-serif;
+  --sans:    'DM Sans', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+
+body { background: var(--light); color: var(--text-dark); font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-36px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(36px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+.delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.22s; }
+.delay-3 { transition-delay: 0.34s; } .delay-4 { transition-delay: 0.46s; }
+.delay-5 { transition-delay: 0.58s; }
+
+/* ── NAV ── */
+nav { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:28px 60px; transition: background 0.4s, border-color 0.4s, padding 0.3s; border-bottom:1px solid transparent; }
+nav.scrolled { background: rgba(9,17,31,0.92); backdrop-filter: blur(16px); border-color: var(--border2); padding: 18px 60px; }
+.nav-logo { display:flex; align-items:center; text-decoration:none; }
+.nav-links { display:flex; gap:36px; list-style:none; }
+.nav-links a { font-size:13px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+.nav-links a:hover { color:var(--white); }
+.nav-cta { font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); text-decoration:none; border:1px solid var(--gold); padding:10px 22px; border-radius:6px; transition:background 0.2s, color 0.2s; }
+.nav-cta:hover { background:var(--gold); color:var(--navy); }
+
+/* ── HERO ── */
+#hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 60px 100px; position:relative; overflow:hidden; }
+.hero-bg { position:absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(26,48,90,0.7) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,171,223,0.08) 0%, transparent 50%), linear-gradient(170deg, #0a1525 0%, #09111f 50%, #060e1a 100%); }
+.hero-grid { position:absolute; inset:0; background-image: linear-gradient(rgba(26,171,223,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(26,171,223,0.04) 1px, transparent 1px); background-size:60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+.hero-lines { position:absolute; top:0; right:120px; width:1px; height:100%; background: linear-gradient(to bottom, transparent, rgba(26,171,223,0.2) 30%, rgba(26,171,223,0.1) 70%, transparent); }
+.hero-lines::before { content:''; position:absolute; top:0; left:60px; width:1px; height:100%; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.05) 40%, transparent); }
+.glow-orb { position:absolute; border-radius:50%; pointer-events:none; filter:blur(140px); }
+
+.hero-eyebrow { position:relative; display:flex; align-items:center; gap:16px; font-family:var(--mono); font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:36px; opacity:0; transform:translateY(20px); animation:fadeUp 0.8s 0.2s cubic-bezier(0.16,1,0.3,1) forwards; }
+.hero-eyebrow::before { content:''; width:32px; height:1px; background:var(--gold); }
+.hero-title { position:relative; font-family:var(--display); font-size:clamp(60px, 7vw, 100px); font-weight:800; line-height:1.0; letter-spacing:-0.02em; color:var(--white); max-width:900px; margin-bottom:40px; opacity:0; animation:fadeUp 1s 0.35s cubic-bezier(0.16,1,0.3,1) forwards; }
+.hero-title em { font-style:normal; color:var(--gold2); }
+.hero-desc { position:relative; font-size:18px; font-weight:300; line-height:1.7; color:var(--muted); max-width:560px; margin-bottom:56px; opacity:0; animation:fadeUp 1s 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+.hero-actions { position:relative; display:flex; gap:24px; align-items:center; opacity:0; animation:fadeUp 1s 0.65s cubic-bezier(0.16,1,0.3,1) forwards; }
+.hero-stats { position:absolute; right:60px; bottom:100px; display:flex; flex-direction:column; gap:32px; opacity:0; animation:fadeUp 1s 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+.hero-stat-item { text-align:right; }
+.hero-stat-num { font-family:var(--display); font-size:48px; font-weight:300; line-height:1; color:var(--white); }
+.hero-stat-label { font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--dim); margin-top:4px; }
+@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+
+.btn-primary { font-size:14px; font-weight:700; letter-spacing:0.05em; color:#fff; background:var(--cyan); text-decoration:none; padding:16px 36px; border-radius:6px; transition:background 0.2s, transform 0.2s; }
+.btn-primary:hover { background:var(--cyan2); transform:translateY(-2px); }
+.btn-secondary { font-size:13px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); text-decoration:none; display:flex; align-items:center; gap:8px; transition:color 0.2s; }
+.btn-secondary:hover { color:var(--white); }
+.btn-secondary::after { content:'↓'; font-size:16px; }
+
+/* ── MARQUEE ── */
+.marquee-wrap { background:var(--navy2); border-top:1px solid var(--border2); border-bottom:1px solid var(--border2); padding:18px 0; overflow:hidden; }
+.marquee-track { display:flex; white-space:nowrap; animation:marquee 32s linear infinite; }
+.marquee-item { display:inline-flex; align-items:center; gap:24px; padding:0 48px; font-family:var(--mono); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--dim); }
+.marquee-item::after { content:''; width:4px; height:4px; border-radius:50%; background:var(--gold); opacity:0.5; }
+@keyframes marquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+/* ── SECTION SHARED ── */
+section { padding:120px 60px; }
+.section-label { font-family:var(--sans); font-size:12px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--cyan); display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+.section-label::before { content:''; width:20px; height:2px; background:var(--cyan); border-radius:2px; }
+.section-title { font-family:var(--display); font-size:clamp(38px, 4vw, 62px); font-weight:800; line-height:1.05; letter-spacing:-0.02em; color:#0a0f1a; }
+.section-title em { font-style:normal; color:var(--cyan); }
+
+/* ── MODULE HEADER BAND ── */
+.module-band { background:var(--navy3); border-top:1px solid var(--border2); border-bottom:1px solid var(--border2); padding:80px 60px; position:relative; overflow:hidden; }
+.module-band-inner { max-width:1400px; margin:0 auto; position:relative; z-index:1; }
+.module-number { font-family:var(--display); font-size:200px; font-weight:800; font-style:italic; line-height:1; opacity:0.04; position:absolute; bottom:-20px; right:0; color:var(--gold); letter-spacing:-0.04em; pointer-events:none; }
+.module-eyebrow { font-family:var(--mono); font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+.module-eyebrow::before { content:''; width:24px; height:1px; background:var(--gold); }
+.module-headline { font-family:var(--display); font-size:clamp(52px, 6vw, 86px); font-weight:300; line-height:1.05; color:var(--white); max-width:900px; }
+.module-headline em { font-style:normal; color:var(--gold2); }
+.module-desc { font-size:18px; font-weight:300; color:var(--muted); margin-top:20px; max-width:700px; line-height:1.65; }
+
+/* ── CONTENT INNER ── */
+.inner { max-width:1400px; margin:0 auto; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; }
+
+/* ── CAPABILITY ROWS ── */
+.capability-row { display:flex; align-items:center; gap:20px; padding:18px 0; border-bottom:1px solid rgba(0,0,0,0.07); }
+.capability-row:first-child { border-top:1px solid rgba(0,0,0,0.07); }
+.capability-num { font-family:var(--mono); font-size:11px; color:var(--text-muted); min-width:28px; }
+.capability-name { font-size:17px; font-weight:600; color:#0d1220; flex:1; }
+.capability-tag { font-family:var(--mono); font-size:11px; letter-spacing:0.08em; color:var(--cyan); background:var(--cyan-lt); border:1px solid var(--cyan-br); padding:4px 12px; border-radius:4px; }
+
+/* ── CARD ── */
+.card { background:white; border:1px solid rgba(0,0,0,0.07); border-radius:10px; padding:32px 28px; box-shadow:0 2px 12px rgba(0,0,0,0.05); }
+.card:hover { box-shadow:0 8px 28px rgba(26,171,223,0.1); transform:translateY(-2px); transition:box-shadow 0.3s, transform 0.3s; }
+.card-num { font-family:var(--mono); font-size:11px; letter-spacing:0.15em; color:var(--cyan); margin-bottom:12px; }
+.card-title { font-family:var(--display); font-size:22px; font-weight:800; color:#0a0f1a; margin-bottom:10px; }
+.card-body { font-size:16px; line-height:1.8; color:var(--text-body); }
+
+/* ── DARK CARD ── */
+.dark-card { background:var(--navy2); border:1px solid var(--border2); border-radius:10px; padding:32px 28px; }
+.dark-card-title { font-size:17px; font-weight:700; color:var(--white); margin-bottom:10px; }
+.dark-card-body { font-size:15px; line-height:1.8; color:var(--muted); }
+
+/* ── CODE BLOCK ── */
+.code-block { font-family:var(--mono); font-size:13px; line-height:1.8; background:#070e1a; border:1px solid rgba(255,255,255,0.07); border-left:2px solid var(--gold); border-radius:4px; padding:24px 28px; color:#8a9ab8; overflow-x:auto; }
+.code-block .kw { color:#b8a0d8; } .code-block .str { color:var(--teal); }
+.code-block .cm { color:#4a5568; font-style:italic; } .code-block .fn { color:var(--gold2); }
+.code-block .num { color:var(--gold); } .code-block .key { color:#a0b8d8; }
+
+/* ── ARCH NODES ── */
+.arch-diagram { display:flex; flex-direction:column; gap:0; }
+.arch-layer { display:flex; align-items:stretch; border:1px solid rgba(0,0,0,0.08); border-top:none; }
+.arch-layer:first-child { border-top:1px solid rgba(0,0,0,0.08); border-radius:4px 4px 0 0; }
+.arch-layer:last-child { border-radius:0 0 4px 4px; }
+.arch-layer-label { font-family:var(--mono); font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-muted); writing-mode:vertical-lr; text-orientation:mixed; transform:rotate(180deg); padding:16px 12px; background:rgba(0,0,0,0.02); border-right:1px solid rgba(0,0,0,0.08); flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+.arch-layer-content { display:flex; gap:10px; padding:14px 16px; flex:1; flex-wrap:wrap; }
+.arch-node { font-family:var(--mono); font-size:11px; letter-spacing:0.06em; padding:6px 14px; border-radius:2px; white-space:nowrap; }
+.arch-node.blue { background:rgba(79,140,255,0.1); color:#7eb3ff; border:1px solid rgba(79,140,255,0.2); }
+.arch-node.gold { background:rgba(26,171,223,0.1); color:var(--gold2); border:1px solid rgba(26,171,223,0.2); }
+.arch-node.teal { background:rgba(46,180,140,0.1); color:#5ecfb0; border:1px solid rgba(46,180,140,0.2); }
+.arch-node.slate { background:rgba(0,0,0,0.04); color:var(--text-body); border:1px solid rgba(0,0,0,0.1); }
+
+/* ── TABLE ── */
+.data-table { width:100%; border-collapse:collapse; }
+.data-table th { text-align:left; padding:12px 18px; font-family:var(--mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); border-bottom:1px solid rgba(0,0,0,0.1); }
+.data-table td { padding:16px 18px; border-bottom:1px solid rgba(0,0,0,0.05); font-size:15px; color:var(--text-body); vertical-align:middle; }
+.data-table tr:last-child td { border-bottom:none; }
+.data-table tr:first-child td { font-weight:600; color:var(--text-dark); background:rgba(94,207,176,0.04); }
+.verdict-selected { color:#2ecfae; font-weight:700; font-family:var(--mono); font-size:12px; }
+.verdict-rejected { color:var(--red); font-family:var(--mono); font-size:12px; }
+.verdict-runner   { color:var(--cyan); font-family:var(--mono); font-size:12px; }
+
+/* ── FLOW STEPS ── */
+.flow-step { display:flex; align-items:center; gap:18px; background:white; border:1px solid rgba(0,0,0,0.07); border-radius:8px; padding:18px 22px; margin-bottom:8px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.flow-icon { width:40px; height:40px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; flex-shrink:0; font-family:var(--mono); background:var(--cyan-lt); color:var(--cyan); border:1px solid var(--cyan-br); }
+.flow-text { font-size:16px; font-weight:600; color:var(--text-dark); }
+.flow-sub { font-size:14px; color:var(--text-muted); margin-top:2px; }
+
+/* ── METRIC ROW ── */
+.metric-row { display:flex; align-items:center; padding:16px 0; border-bottom:1px solid rgba(0,0,0,0.06); gap:20px; }
+.metric-name { font-size:16px; font-weight:600; flex:2; color:var(--text-dark); }
+.metric-tool { font-size:13px; color:var(--text-muted); flex:1; font-family:var(--mono); }
+.metric-val { font-family:var(--display); font-size:22px; font-weight:800; flex:1; text-align:right; color:var(--text-dark); }
+.metric-val.teal { color:#2ecfae; } .metric-val.blue { color:var(--blue); }
+.metric-val.amber { color:var(--amber); } .metric-val.red { color:var(--red); }
+
+/* ── PIPELINE DIAGRAM ── */
+.pipeline-box { border-radius:8px; padding:20px; text-align:center; }
+.pipeline-label { font-size:13px; font-weight:700; margin-bottom:4px; }
+.pipeline-count { font-family:var(--display); font-size:40px; font-weight:800; }
+
+/* ── STAT CARDS ── */
+.stat-card { background:white; border:1px solid rgba(0,0,0,0.08); border-radius:10px; padding:28px 24px; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+.stat-num { font-family:var(--display); font-size:40px; font-weight:800; line-height:1; color:var(--text-dark); margin-bottom:8px; }
+.stat-label { font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); }
+
+/* ── TIMELINE ── */
+.tl-wrap { display:flex; gap:0; align-items:stretch; }
+.tl-step { flex:1; display:flex; flex-direction:column; align-items:center; position:relative; }
+.tl-step:not(:last-child)::after { content:''; position:absolute; top:24px; left:50%; right:-50%; height:1px; background:rgba(0,0,0,0.08); z-index:0; }
+.tl-dot { width:48px; height:48px; border-radius:50%; background:var(--light2); border:2px solid var(--cyan-br); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:14px; font-weight:700; position:relative; z-index:1; margin-bottom:14px; color:var(--cyan); }
+.tl-name { font-size:14px; font-weight:700; text-align:center; margin-bottom:4px; color:var(--text-dark); }
+.tl-time { font-size:13px; color:var(--teal); font-family:var(--mono); font-weight:600; }
+.tl-note { font-size:12px; color:var(--text-muted); text-align:center; margin-top:4px; }
+
+/* ── QUOTE ── */
+.pullquote { font-family:var(--display); font-size:22px; font-weight:500; font-style:italic; line-height:1.5; color:var(--text-dark); border-left:3px solid var(--cyan); padding-left:28px; margin-bottom:40px; }
+.pullquote cite { display:block; font-family:var(--sans); font-style:normal; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin-top:12px; }
+
+/* ── CONTACT ── */
+#contact { background:var(--navy); text-align:center; }
+.contact-title { font-family:var(--display); font-size:clamp(44px, 5vw, 68px); font-weight:800; line-height:1.05; color:white; margin-bottom:24px; }
+.contact-sub { font-size:17px; font-weight:400; line-height:1.7; color:rgba(255,255,255,0.6); margin-bottom:48px; }
+.contact-email { display:inline-flex; align-items:center; gap:10px; font-size:15px; font-weight:700; color:white; text-decoration:none; background:var(--cyan); padding:16px 36px; border-radius:8px; margin-bottom:48px; transition:background 0.2s, transform 0.2s; }
+.contact-email:hover { background:var(--cyan2); transform:translateY(-2px); }
+.contact-divider { width:40px; height:3px; background:var(--cyan); border-radius:2px; margin:0 auto 48px; }
+footer { background:var(--navy); border-top:1px solid rgba(255,255,255,0.05); padding:40px 60px; display:flex; align-items:center; justify-content:space-between; }
+.footer-copy { font-family:var(--mono); font-size:11px; letter-spacing:0.1em; color:var(--dim); }
+.footer-links { display:flex; gap:32px; }
+.footer-links a { font-size:12px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--dim); text-decoration:none; transition:color 0.2s; }
+.footer-links a:hover { color:var(--muted); }
+
+/* ── FORMULA ── */
+.formula-block { background:#070e1a; border:1px solid rgba(255,255,255,0.07); border-left:2px solid var(--gold); border-radius:4px; padding:24px 36px; text-align:center; font-family:var(--mono); font-size:18px; color:var(--white); margin:20px 0; }
+
+/* ── ACCENT ── */
+.accent-em { color:var(--gold2); font-weight:700; }
+.tag-pill { display:inline-block; font-family:var(--mono); font-size:11px; letter-spacing:0.06em; padding:4px 12px; border-radius:3px; background:var(--cyan-lt); color:var(--cyan); border:1px solid var(--cyan-br); margin:3px; }
+.tag-pill.teal { background:rgba(94,207,176,0.1); color:#5ecfb0; border-color:rgba(94,207,176,0.25); }
+
+/* ── TWEAKS ── */
+#tweaks-panel { display:none; position:fixed; bottom:28px; right:28px; background:rgba(9,17,31,0.95); backdrop-filter:blur(20px); border:1px solid var(--border); border-radius:4px; padding:24px; width:280px; z-index:999; font-family:var(--sans); }
+#tweaks-panel h3 { font-family:var(--mono); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+.tweak-row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border2); }
+.tweak-row:last-child { border-bottom:none; }
+.tweak-label { font-size:13px; color:var(--muted); }
+.tweak-control select, .tweak-control input[type=range] { background:transparent; border:1px solid var(--border2); color:var(--white); font-size:12px; padding:4px 8px; border-radius:2px; font-family:var(--mono); outline:none; cursor:pointer; }
+.tweak-control input[type=range] { width:100px; padding:0; border:none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo"><img src="cloudnation-logo.png" alt="CloudNation" style="height:40px;width:auto;"/></a>
+  <ul class="nav-links">
+    <li><a href="#module1">Ingestion</a></li>
+    <li><a href="#module2">Retrieval</a></li>
+    <li><a href="#module3">Agentic RAG</a></li>
+    <li><a href="#module4">Operations</a></li>
+    <li><a href="#e2e">End-to-End</a></li>
+    <li><a href="#devops">DevOps</a></li>
+  </ul>
+  <a href="index.html" class="nav-cta">← Portfolio</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-lines"></div>
+  <div class="glow-orb" style="width:800px;height:800px;top:-200px;left:-200px;background:rgba(79,158,255,0.07);"></div>
+  <div class="glow-orb" style="width:600px;height:600px;bottom:-150px;right:100px;background:rgba(46,207,174,0.06);"></div>
+
+  <div class="hero-eyebrow">Data &amp; AI · CloudNation · Technical Architecture</div>
+  <h1 class="hero-title">Enterprise RAG<br/>for the <em>National</em><br/><em>Tax Authority.</em></h1>
+  <p class="hero-desc">Full technical architecture for a 500,000-document fiscal knowledge base: ingestion, retrieval, agentic loops, security, and production operations. By <strong style="color:var(--cyan)">Matteo De Rizzo</strong>.</p>
+  <div class="hero-actions">
+    <a href="#module1" class="btn-primary">Explore Architecture</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat-item">
+      <div class="hero-stat-num">500K</div>
+      <div class="hero-stat-label">Documents indexed</div>
+    </div>
+    <div class="hero-stat-item">
+      <div class="hero-stat-num">20M+</div>
+      <div class="hero-stat-label">Vector chunks</div>
+    </div>
+    <div class="hero-stat-item">
+      <div class="hero-stat-num">&lt;1.5s</div>
+      <div class="hero-stat-label">Target TTFT</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Retrieval-Augmented Generation</span>
+    <span class="marquee-item">Hybrid BM25 + Dense Retrieval</span>
+    <span class="marquee-item">Hierarchy-Aware Chunking</span>
+    <span class="marquee-item">LangGraph Pipelines</span>
+    <span class="marquee-item">Phi-3-mini Local Routing</span>
+    <span class="marquee-item">GPT-NL Final Generation</span>
+    <span class="marquee-item">Cross-Encoder Reranking</span>
+    <span class="marquee-item">RBAC Mathematical Pre-Filter</span>
+    <span class="marquee-item">Reciprocal Rank Fusion</span>
+    <span class="marquee-item">Corrective RAG Loop</span>
+    <span class="marquee-item">Semantic Cache · 0.97 threshold</span>
+    <span class="marquee-item">OpenTelemetry Observability</span>
+    <span class="marquee-item">Retrieval-Augmented Generation</span>
+    <span class="marquee-item">Hybrid BM25 + Dense Retrieval</span>
+    <span class="marquee-item">Hierarchy-Aware Chunking</span>
+    <span class="marquee-item">LangGraph Pipelines</span>
+    <span class="marquee-item">Phi-3-mini Local Routing</span>
+    <span class="marquee-item">GPT-NL Final Generation</span>
+    <span class="marquee-item">Cross-Encoder Reranking</span>
+    <span class="marquee-item">RBAC Mathematical Pre-Filter</span>
+    <span class="marquee-item">Reciprocal Rank Fusion</span>
+    <span class="marquee-item">Corrective RAG Loop</span>
+    <span class="marquee-item">Semantic Cache · 0.97 threshold</span>
+    <span class="marquee-item">OpenTelemetry Observability</span>
+  </div>
+</div>
+
+<!-- MODULE 1 BAND -->
+<div class="module-band" id="module1">
+  <div class="module-number">01</div>
+  <div class="module-band-inner">
+    <div class="module-eyebrow reveal">Module 1</div>
+    <h2 class="module-headline reveal delay-1">Ingestion &amp;<br/>Knowledge Structuring</h2>
+    <p class="module-desc reveal delay-2">Parsing, chunking, embedding, and indexing 500,000 legal documents for precision retrieval.</p>
+  </div>
+</div>
+
+<!-- CHUNKING PROBLEM -->
+<section style="background:var(--light);">
+  <div class="inner">
+    <div class="two-col" style="margin-bottom:80px;">
+      <div>
+        <div class="section-label reveal">The Chunking Problem</div>
+        <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">Why standard splitters<br/><em>fail in legal corpora.</em></h2>
+        <p class="reveal delay-2" style="font-size:17px;line-height:1.8;color:var(--text-body);margin-bottom:32px;">Standard text splitters destroy the three things that matter in tax law: article hierarchy, cross-references between articles, and citable identifiers like <code style="font-family:var(--mono);color:var(--cyan);font-size:15px;">Artikel 3.114, lid 2</code>.</p>
+        <div class="reveal delay-3">
+          <div style="border-left:3px solid var(--red);padding:16px 20px;background:rgba(217,112,112,0.05);border-radius:0 6px 6px 0;margin-bottom:12px;">
+            <div style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:4px;">Hierarchy destroyed</div>
+            <div style="font-size:14px;color:var(--text-body);">Hoofdstuk → Afdeling → Artikel → Lid, all collapsed into flat tokens.</div>
+          </div>
+          <div style="border-left:3px solid var(--red);padding:16px 20px;background:rgba(217,112,112,0.05);border-radius:0 6px 6px 0;margin-bottom:12px;">
+            <div style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:4px;">Cross-references severed</div>
+            <div style="font-size:14px;color:var(--text-body);">Article X referring to Article Z; relationship lost at chunk boundaries.</div>
+          </div>
+          <div style="border-left:3px solid var(--red);padding:16px 20px;background:rgba(217,112,112,0.05);border-radius:0 6px 6px 0;">
+            <div style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:4px;">Citability eliminated</div>
+            <div style="font-size:14px;color:var(--text-body);">Answers must cite exact articles, not "chunk 4712". Legally useless otherwise.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pullquote reveal delay-1">
+          "The system refuses before it guesses. That is not a limitation; it is the design."
+          <cite>Architecture Principle #1 · Matteo De Rizzo</cite>
+        </div>
+        <div class="reveal delay-2">
+          <div style="font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Our requirement</div>
+          <div style="background:rgba(94,207,176,0.07);border:1px solid rgba(94,207,176,0.2);border-radius:8px;padding:20px 24px;margin-bottom:20px;">
+            <div style="font-size:15px;font-weight:700;color:#2ecfae;margin-bottom:6px;">Every chunk must carry:</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              <span class="tag-pill teal">article number</span>
+              <span class="tag-pill teal">paragraph</span>
+              <span class="tag-pill teal">law name</span>
+              <span class="tag-pill teal">validity date</span>
+              <span class="tag-pill teal">RBAC classification</span>
+              <span class="tag-pill teal">parent_id</span>
+            </div>
+          </div>
+          <div class="code-block">
+<span class="cm"># chunk_id → "wet_ib_2001#art_3.114#lid_2"</span>
+{
+  <span class="key">"doc_id"</span>: <span class="str">"wet_ib_2001"</span>,
+  <span class="key">"artikel"</span>: <span class="str">"3.114"</span>,
+  <span class="key">"lid"</span>: <span class="str">"2"</span>,
+  <span class="key">"classification"</span>: <span class="str">"public"</span>,
+  <span class="key">"role_acl"</span>: [<span class="str">"helpdesk"</span>, <span class="str">"inspector"</span>],
+  <span class="key">"valid_from"</span>: <span class="str">"2024-01-01"</span>,
+  <span class="key">"parent_id"</span>: <span class="str">"wet_ib_2001#art_3.114"</span>
+}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parent-child splitting -->
+    <div style="margin-bottom:80px;">
+      <div class="section-label reveal">Chunking Strategy</div>
+      <h2 class="section-title reveal delay-1" style="margin-bottom:40px;">Hierarchy-Aware <em>Parent-Child Splitting</em></h2>
+      <div class="two-col">
+        <div class="reveal delay-1">
+          <div style="background:rgba(79,158,255,0.06);border:2px solid rgba(79,158,255,0.3);border-radius:12px 12px 0 0;padding:24px 28px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;">
+              <span style="background:var(--blue);color:#000;font-size:12px;font-weight:800;padding:3px 10px;border-radius:20px;">PARENT</span>
+              <span style="font-size:14px;color:var(--text-muted);">Full Article · 200–1500 tokens</span>
+            </div>
+            <div style="font-size:18px;font-weight:700;color:var(--text-dark);margin-bottom:6px;">Artikel 3.114: Wet IB 2001</div>
+            <div style="font-size:14px;color:var(--text-muted);">Stored in Postgres. Fetched at generation time for full context.</div>
+          </div>
+          <div style="border-left:2px solid rgba(79,158,255,0.15);border-right:2px solid rgba(79,158,255,0.15);padding:8px 20px;text-align:center;font-size:13px;color:var(--text-muted);">↓ auto-merging retrieval</div>
+          <div style="display:flex;gap:8px;">
+            <div style="flex:1;background:rgba(94,207,176,0.06);border:2px solid rgba(94,207,176,0.3);border-radius:0 0 0 10px;padding:18px 16px;">
+              <div style="font-size:13px;font-weight:800;color:#5ecfb0;margin-bottom:6px;">CHILD · lid 1</div>
+              <div style="font-size:13px;color:var(--text-muted);">60–300 tokens. Vector search hits here.</div>
+            </div>
+            <div style="flex:1;background:rgba(94,207,176,0.06);border:2px solid rgba(94,207,176,0.3);border-top:none;padding:18px 16px;">
+              <div style="font-size:13px;font-weight:800;color:#5ecfb0;margin-bottom:6px;">CHILD · lid 2</div>
+              <div style="font-size:13px;color:var(--text-muted);">Retrieval precision lives here.</div>
+            </div>
+            <div style="flex:1;background:rgba(94,207,176,0.06);border:2px solid rgba(94,207,176,0.3);border-radius:0 0 10px 0;border-top:none;padding:18px 16px;">
+              <div style="font-size:13px;font-weight:800;color:#5ecfb0;margin-bottom:6px;">CHILD · lid 3</div>
+              <div style="font-size:13px;color:var(--text-muted);">Parent auto-fetched on match.</div>
+            </div>
+          </div>
+          <p style="margin-top:16px;font-size:14px;color:var(--text-muted);">When a child matches → retrieve parent → feed full article to LLM</p>
+        </div>
+        <div class="reveal delay-2">
+          <p style="font-size:15px;color:var(--text-body);margin-bottom:20px;">LlamaIndex <code style="font-family:var(--mono);color:var(--cyan);font-size:13px;">HierarchicalNodeParser</code> handles parent-child linking. A custom extractor propagates RBAC metadata to every child node automatically.</p>
+          <div class="code-block" style="margin-bottom:20px;">
+<span class="kw">class</span> <span class="fn">LegalMetadataExtractor</span>(BaseExtractor):
+  <span class="kw">def</span> <span class="fn">extract</span>(self, nodes):
+    <span class="kw">for</span> node <span class="kw">in</span> nodes:
+      <span class="kw">if</span> node.parent_node:
+        <span class="kw">for</span> key <span class="kw">in</span> (<span class="str">"wet"</span>, <span class="str">"artikel"</span>, <span class="str">"role_acl"</span>):
+          node.metadata[key] = node.parent_node.metadata[key]
+      <span class="cm"># child inherits role_acl, no gap possible</span>
+    <span class="kw">return</span> nodes</div>
+          <div style="background:rgba(94,207,176,0.07);border:1px solid rgba(94,207,176,0.2);border-radius:8px;padding:18px 22px;">
+            <div style="font-size:14px;font-weight:700;color:#5ecfb0;margin-bottom:6px;">Key guarantee</div>
+            <div style="font-size:14px;color:var(--text-body);">Every child node inherits <code style="font-family:var(--mono);color:var(--cyan);font-size:12px;">role_acl</code> from its parent article. There is no path by which a chunk enters the vector index without an RBAC payload.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vector DB + Ingestion Pipeline -->
+    <div>
+      <div class="two-col">
+        <div>
+          <div class="section-label reveal">Vector Database</div>
+          <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">Why <em>Qdrant</em>.</h2>
+          <div class="reveal delay-2" style="overflow:auto;margin-bottom:24px;">
+            <table class="data-table">
+              <thead><tr><th>Database</th><th>Verdict</th><th>Reason</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Qdrant</strong></td><td><span class="verdict-selected">✓ Selected</span></td><td>On-prem, Rust core, payload filtering for RBAC, scalar quantization</td></tr>
+                <tr><td>Weaviate</td><td><span class="verdict-runner">Runner-up</span></td><td>Strong hybrid search; slower filtering at 20M+</td></tr>
+                <tr><td>Pinecone</td><td><span class="verdict-rejected">✗ Rejected</span></td><td>SaaS-only; government data residency forbids it</td></tr>
+                <tr><td>pgvector</td><td><span class="verdict-rejected">✗ Rejected</span></td><td>HNSW degrades beyond ~2M vectors at target TTFT</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="background:rgba(26,171,223,0.05);border:1px solid var(--cyan-br);border-radius:8px;padding:20px 24px;font-size:14px;color:var(--text-body);">
+            <strong style="color:var(--cyan);">Qdrant's key advantage:</strong> payload filtering executes inside the DB, a mathematical RBAC pre-filter, not post-retrieval redaction.
+          </div>
+        </div>
+        <div>
+          <div class="section-label reveal">Ingestion Pipeline</div>
+          <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">Five-step <em>processing</em>.</h2>
+          <div class="reveal delay-2">
+            <div class="flow-step">
+              <div class="flow-icon">1</div>
+              <div><div class="flow-text">Document Parser</div><div class="flow-sub">pdfplumber · lxml · python-docx → normalized markdown</div></div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">2</div>
+              <div><div class="flow-text">Legal Structure Detector</div><div class="flow-sub">Regex for Artikel/Lid/Sub, ECLI parser, front-matter</div></div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">3</div>
+              <div><div class="flow-text">Hierarchical Chunker</div><div class="flow-sub">Parent + child chunks with full metadata inheritance</div></div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">4</div>
+              <div><div class="flow-text">RBAC Classification</div><div class="flow-sub">Lookup from document source registry</div></div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">5</div>
+              <div><div class="flow-text">Embedding + Parallel Write</div><div class="flow-sub">bge-m3 1024-dim → Qdrant, Elasticsearch, Postgres</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDEX CONFIG -->
+<section style="background:var(--light2);border-top:1px solid rgba(0,0,0,0.06);">
+  <div class="inner">
+    <div class="two-col">
+      <div>
+        <div class="section-label reveal">Index Configuration</div>
+        <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">20M+ Chunks: <em>Memory Math</em></h2>
+        <div class="reveal delay-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;">
+          <div style="background:rgba(217,112,112,0.07);border:1px solid rgba(217,112,112,0.2);border-radius:10px;padding:24px 20px;">
+            <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:8px;">Full Precision (float32)</div>
+            <div style="font-family:var(--display);font-size:36px;font-weight:800;margin-bottom:4px;color:var(--text-dark);">~160 GB</div>
+            <div style="font-size:13px;color:var(--text-muted);">80 GB vectors + HNSW graph</div>
+          </div>
+          <div style="background:rgba(94,207,176,0.07);border:1px solid rgba(94,207,176,0.2);border-radius:10px;padding:24px 20px;">
+            <div style="font-size:13px;font-weight:700;color:#2ecfae;margin-bottom:8px;">int8 Scalar Quantized ✓</div>
+            <div style="font-family:var(--display);font-size:36px;font-weight:800;margin-bottom:4px;color:var(--text-dark);">~40 GB</div>
+            <div style="font-size:13px;color:var(--text-muted);">Fits single 64 GB node + NVMe rescore</div>
+          </div>
+        </div>
+        <div class="reveal delay-3" style="font-size:14px;color:var(--text-body);line-height:1.8;background:white;border:1px solid rgba(0,0,0,0.07);border-radius:8px;padding:20px 24px;">
+          Deployed as <strong>2 shards × 10M chunks</strong> for redundancy and horizontal query parallelism. HNSW m=32, ef_construct=256, always_ram=true for quantized vectors.
+        </div>
+      </div>
+      <div>
+        <div class="section-label reveal">Index Config</div>
+        <div class="reveal delay-1" style="margin-top:40px;">
+          <div class="code-block">
+<span class="key">hnsw_config</span>:
+  <span class="key">m</span>: <span class="num">32</span>         <span class="cm"># 2× default; better recall at 20M</span>
+  <span class="key">ef_construct</span>: <span class="num">256</span>  <span class="cm"># one-time build cost</span>
+
+<span class="key">quantization_config</span>:
+  <span class="key">scalar</span>:
+    <span class="key">type</span>: <span class="str">int8</span>
+    <span class="key">always_ram</span>: <span class="num">true</span>   <span class="cm"># quantized in RAM, raw on NVMe</span>
+
+<span class="cm"># Query time</span>
+<span class="key">hnsw_ef</span>: <span class="num">128</span>           <span class="cm"># 256 for /advanced queries</span>
+<span class="key">rescore</span>: <span class="num">true</span>          <span class="cm"># float32 precision from NVMe</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 2 BAND -->
+<div class="module-band" id="module2" style="background:var(--navy2);">
+  <div class="module-number">02</div>
+  <div class="module-band-inner">
+    <div class="module-eyebrow reveal">Module 2</div>
+    <h2 class="module-headline reveal delay-1">Retrieval Strategy</h2>
+    <p class="module-desc reveal delay-2">Hybrid BM25 + dense search, RRF fusion, exact-match boosting, and cross-encoder reranking.</p>
+  </div>
+</div>
+
+<!-- HYBRID RETRIEVAL -->
+<section style="background:var(--light);">
+  <div class="inner">
+    <div class="two-col" style="margin-bottom:72px;">
+      <div>
+        <div class="section-label reveal">Hybrid Retrieval</div>
+        <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">BM25 + Dense with<br/><em>RRF Fusion</em></h2>
+        <p class="reveal delay-2" style="font-size:16px;line-height:1.8;color:var(--text-body);margin-bottom:28px;">Two query shapes: neither retriever wins alone. Exact-reference queries ("Artikel 3.114 lid 2") go to BM25. Semantic concept queries go to dense search. RRF fuses both without an alpha weight to tune.</p>
+        <div class="reveal delay-3">
+          <div style="border-left:3px solid var(--blue);padding:14px 20px;background:rgba(79,158,255,0.05);border-radius:0 6px 6px 0;margin-bottom:10px;">
+            <div style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:4px;">Exact-Reference Queries → BM25 wins</div>
+            <div style="font-family:var(--mono);font-size:12px;color:var(--text-muted);">"ECLI:NL:HR:2023:123" · "Artikel 3.114 lid 2 Wet IB 2001"</div>
+          </div>
+          <div style="border-left:3px solid #5ecfb0;padding:14px 20px;background:rgba(94,207,176,0.05);border-radius:0 6px 6px 0;">
+            <div style="font-size:14px;font-weight:700;color:#5ecfb0;margin-bottom:4px;">Semantic Concept Queries → Dense wins</div>
+            <div style="font-family:var(--mono);font-size:12px;color:var(--text-muted);">"kan een zzp'er de kosten van zijn thuiswerkplek aftrekken?"</div>
+          </div>
+        </div>
+        <div class="formula-block reveal delay-4" style="margin-top:24px;">
+          RRF(d) = Σ <span style="color:var(--blue);">1 / (k + rankᵣ(d))</span><br/>
+          <span style="font-size:13px;color:var(--muted);">k = 60 · No α to tune · Robust across mixed workloads</span>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <div style="background:var(--light2);border:1px solid rgba(0,0,0,0.08);border-radius:8px 8px 0 0;padding:18px 24px;text-align:center;font-size:16px;font-weight:700;">user query</div>
+          <div style="display:flex;gap:0;border-top:none;">
+            <div style="flex:1;background:rgba(79,158,255,0.06);border:1px solid rgba(79,158,255,0.25);padding:20px;text-align:center;border-top:none;">
+              <div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:6px;">BM25 · Elasticsearch</div>
+              <div style="font-family:var(--display);font-size:32px;font-weight:800;">top-40</div>
+            </div>
+            <div style="flex:1;background:rgba(94,207,176,0.06);border:1px solid rgba(94,207,176,0.25);border-left:none;padding:20px;text-align:center;border-top:none;">
+              <div style="font-size:13px;font-weight:700;color:#5ecfb0;margin-bottom:6px;">Dense · Qdrant (RBAC)</div>
+              <div style="font-family:var(--display);font-size:32px;font-weight:800;">top-40</div>
+            </div>
+          </div>
+          <div style="background:rgba(232,164,48,0.07);border:1px solid rgba(232,164,48,0.25);border-top:none;padding:18px 24px;text-align:center;">
+            <div style="font-size:13px;font-weight:700;color:var(--amber);margin-bottom:4px;">RRF Fusion + Exact-Match Boost</div>
+            <div style="font-family:var(--display);font-size:28px;font-weight:800;">merged top-40</div>
+          </div>
+          <div style="background:rgba(79,158,255,0.1);border:1px solid rgba(79,158,255,0.35);border-top:none;padding:18px 24px;text-align:center;border-radius:0 0 8px 8px;">
+            <div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:4px;">Cross-Encoder Reranker</div>
+            <div style="font-family:var(--display);font-size:52px;font-weight:800;color:var(--blue);">6</div>
+            <div style="font-size:13px;color:var(--text-muted);">final chunks to LLM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reranking -->
+    <div>
+      <div class="section-label reveal">Reranking</div>
+      <h2 class="section-title reveal delay-1" style="margin-bottom:40px;">Cross-Encoder: <em>why it's mandatory.</em></h2>
+      <div class="three-col" style="grid-template-columns:1fr 1fr 1fr;">
+        <div style="background:rgba(217,112,112,0.06);border:1px solid rgba(217,112,112,0.18);border-radius:10px;padding:32px 28px;" class="reveal delay-1">
+          <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">Bi-encoder correlation alone</div>
+          <div style="font-family:var(--display);font-size:60px;font-weight:800;color:var(--red);">~0.4</div>
+          <div style="font-size:14px;color:var(--text-muted);">with actual relevance on legal text</div>
+        </div>
+        <div style="background:rgba(94,207,176,0.07);border:1px solid rgba(94,207,176,0.2);border-radius:10px;padding:32px 28px;" class="reveal delay-2">
+          <div style="font-size:14px;font-weight:700;color:#2ecfae;margin-bottom:8px;">Cross-encoder gain</div>
+          <div style="font-family:var(--display);font-size:60px;font-weight:800;color:#2ecfae;">+15–25</div>
+          <div style="font-size:14px;color:var(--text-muted);">nDCG@5 points on legal benchmarks</div>
+        </div>
+        <div class="card reveal delay-3" style="display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--text-dark);margin-bottom:6px;">Top-K Budget</div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><span style="font-size:14px;">BM25 initial</span><span style="font-family:var(--display);font-size:22px;font-weight:800;color:var(--blue);">40</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><span style="font-size:14px;">Dense initial</span><span style="font-family:var(--display);font-size:22px;font-weight:800;color:#5ecfb0;">40</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06);"><span style="font-size:14px;">Post-RRF fusion</span><span style="font-family:var(--display);font-size:22px;font-weight:800;color:var(--amber);">40</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;"><span style="font-size:14px;font-weight:700;">→ LLM</span><span style="font-family:var(--display);font-size:28px;font-weight:800;color:var(--cyan);">6</span></div>
+          </div>
+          <div style="font-size:13px;color:var(--text-muted);background:var(--light2);border-radius:6px;padding:12px 16px;">At 40 candidates, <code style="font-family:var(--mono);font-size:12px;">bge-reranker-v2-m3</code> on A10G: ~80ms batched. Going to 100: 200ms+ for ~1 nDCG point. Not worth the budget.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 3 BAND -->
+<div class="module-band" id="module3">
+  <div class="module-number">03</div>
+  <div class="module-band-inner">
+    <div class="module-eyebrow reveal">Module 3</div>
+    <h2 class="module-headline reveal delay-1">Agentic RAG &amp;<br/><em>Self-Healing</em></h2>
+    <p class="module-desc reveal delay-2">Query transformation, corrective retrieval loops, and citation verification post-checks.</p>
+  </div>
+</div>
+
+<!-- QUERY TRANSFORM + CORRECTIVE RAG -->
+<section style="background:var(--light2);">
+  <div class="inner">
+    <div class="two-col" style="margin-bottom:72px;">
+      <div>
+        <div class="section-label reveal">Query Transformation</div>
+        <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">Why linear RAG fails:<br/><em>three strategies.</em></h2>
+        <p class="reveal delay-2" style="font-size:16px;line-height:1.8;color:var(--text-body);margin-bottom:28px;">Real tax questions break single retrieval. A query router selects the right strategy before any retrieval happens.</p>
+        <div class="reveal delay-3" style="display:flex;flex-direction:column;gap:12px;">
+          <div class="card" style="border-left:3px solid var(--blue);">
+            <div class="card-title" style="color:var(--blue);font-size:16px;">Query Decomposition</div>
+            <div class="card-body" style="font-size:14px;">Multi-part questions split into 2–4 sub-queries via Phi-3-mini (local). Each retrieves independently; results deduplicated and jointly reranked against original.<br/><span style="color:var(--text-muted);font-size:13px;">Trigger: conjunctions + multiple distinct entities</span></div>
+          </div>
+          <div class="card" style="border-left:3px solid #5ecfb0;">
+            <div class="card-title" style="color:#5ecfb0;font-size:16px;">HyDE: Hypothetical Document Embeddings</div>
+            <div class="card-body" style="font-size:14px;">Vague/colloquial queries: LLM drafts a hypothetical answer in legal register, then we retrieve against its embedding. Legal vocabulary in the hypothetical beats user wording.<br/><span style="color:var(--text-muted);font-size:13px;">Trigger: short + colloquial; no legal identifiers</span></div>
+          </div>
+          <div class="card">
+            <div class="card-title" style="font-size:16px;">Direct Retrieval</div>
+            <div class="card-body" style="font-size:14px;">Query already contains legal identifiers → BM25 boost + standard hybrid retrieve.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label reveal">Corrective RAG</div>
+        <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">LangGraph State Machine</h2>
+        <div class="reveal delay-2" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
+          <div style="background:white;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:16px 20px;text-align:center;font-size:15px;font-weight:700;">user query</div>
+          <div style="text-align:center;color:var(--text-muted);font-size:12px;">↓</div>
+          <div style="background:rgba(79,158,255,0.07);border:1px solid rgba(79,158,255,0.25);border-radius:8px;padding:16px 20px;text-align:center;font-size:15px;font-weight:700;color:var(--blue);">route_query</div>
+          <div style="text-align:center;color:var(--text-muted);font-size:12px;">↓</div>
+          <div style="background:white;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:16px 20px;text-align:center;font-size:15px;font-weight:700;">retrieve + rerank</div>
+          <div style="text-align:center;color:var(--text-muted);font-size:12px;">↓</div>
+          <div style="background:rgba(232,164,48,0.08);border:1px solid rgba(232,164,48,0.25);border-radius:8px;padding:16px 20px;text-align:center;font-size:15px;font-weight:700;color:var(--amber);">grade (Phi-3-mini · local · ~150ms)</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;">
+            <div style="background:rgba(94,207,176,0.08);border:1px solid rgba(94,207,176,0.25);border-radius:8px;padding:14px 10px;">
+              <div style="font-size:12px;font-weight:700;color:#2ecfae;margin-bottom:4px;">Relevant</div>
+              <div style="font-size:13px;font-weight:600;">generate + cite</div>
+            </div>
+            <div style="background:rgba(232,164,48,0.07);border:1px solid rgba(232,164,48,0.2);border-radius:8px;padding:14px 10px;">
+              <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:4px;">Ambiguous</div>
+              <div style="font-size:13px;font-weight:600;">rewrite + retry ×1</div>
+            </div>
+            <div style="background:rgba(217,112,112,0.07);border:1px solid rgba(217,112,112,0.2);border-radius:8px;padding:14px 10px;">
+              <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:4px;">Irrelevant</div>
+              <div style="font-size:13px;font-weight:600;">refuse / escalate</div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal delay-3" style="background:rgba(217,112,112,0.06);border:1px solid rgba(217,112,112,0.18);border-radius:8px;padding:20px 24px;">
+          <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:6px;">The hard rule</div>
+          <div style="font-size:14px;color:var(--text-body);">The cost of a wrong tax answer (legal liability) vastly exceeds the cost of a refusal. The no-answer path is non-negotiable. The grader is biased toward caution.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 4 BAND -->
+<div class="module-band" id="module4" style="background:var(--navy3);">
+  <div class="module-number">04</div>
+  <div class="module-band-inner">
+    <div class="module-eyebrow reveal">Module 4</div>
+    <h2 class="module-headline reveal delay-1">Production Operations,<br/>Security &amp; <em>Evaluation</em></h2>
+    <p class="module-desc reveal delay-2">Semantic cache, RBAC enforcement, CI/CD evaluation gates, and production observability.</p>
+  </div>
+</div>
+
+<!-- CACHE + RBAC -->
+<section style="background:var(--light);">
+  <div class="inner">
+    <div class="two-col" style="margin-bottom:72px;">
+      <div>
+        <div class="section-label reveal">Semantic Cache</div>
+        <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">Why 0.97, <em>not 0.95.</em></h2>
+        <p class="reveal delay-2" style="font-size:16px;line-height:1.8;color:var(--text-body);margin-bottom:24px;">Common defaults (0.90–0.95) are dangerously low for tax law.</p>
+        <div class="reveal delay-3" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
+          <div style="background:rgba(217,112,112,0.05);border:1px solid rgba(217,112,112,0.18);border-radius:8px;padding:18px 20px;">
+            <div style="font-family:var(--mono);font-size:12px;color:var(--text-muted);margin-bottom:6px;">"Box 1 tax rate 2024" vs "Box 3 tax rate 2024"</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:14px;color:var(--red);font-weight:600;">Completely different answers</span>
+              <span style="font-family:var(--display);font-size:20px;font-weight:800;color:var(--red);">~0.93</span>
+            </div>
+          </div>
+          <div style="background:rgba(217,112,112,0.05);border:1px solid rgba(217,112,112,0.18);border-radius:8px;padding:18px 20px;">
+            <div style="font-family:var(--mono);font-size:12px;color:var(--text-muted);margin-bottom:6px;">"AOW premium rate 2023" vs "AOW premium rate 2024"</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:14px;color:var(--red);font-weight:600;">Different answers</span>
+              <span style="font-family:var(--display);font-size:20px;font-weight:800;color:var(--red);">~0.96</span>
+            </div>
+          </div>
+          <div style="background:rgba(94,207,176,0.07);border:1px solid rgba(94,207,176,0.2);border-radius:8px;padding:18px 20px;">
+            <div style="font-size:14px;font-weight:700;color:#2ecfae;margin-bottom:4px;">Threshold: 0.97 ✓</div>
+            <div style="font-size:14px;color:var(--text-body);">"what is the Box 1 bracket" vs "what's the tax rate for Box 1" → 0.98–0.99 → safe cache hit</div>
+          </div>
+          <div style="background:rgba(26,171,223,0.06);border:1px solid rgba(26,171,223,0.18);border-radius:8px;padding:16px 20px;">
+            <div style="font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;">Implementation note</div>
+            <div style="font-size:14px;color:var(--text-body);line-height:1.7;">0.97 is a <strong>starting point</strong>, not a fixed value. Once the application is live, cache hit/miss logs and user feedback should drive empirical tuning; the right threshold is corpus- and query-distribution-specific.</div>
+          </div>
+        </div>
+        <div class="reveal delay-4" style="display:flex;flex-direction:column;gap:10px;">
+          <div class="card" style="padding:18px 22px;">
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Cache key = embedding + salt</div>
+            <div style="font-family:var(--mono);font-size:12px;color:var(--text-muted);">roles :: fiscal_year :: doc_type</div>
+          </div>
+          <div class="card" style="padding:18px 22px;">
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px;">TTL by document type</div>
+            <div style="font-size:14px;color:var(--text-body);"><span style="color:var(--blue);font-weight:600;">Legislation</span> → 24h &nbsp;·&nbsp; <span style="color:#5ecfb0;font-weight:600;">Case law</span> → 1h</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label reveal">RBAC · Security</div>
+        <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">Mathematical <em>pre-filtering.</em></h2>
+        <div class="reveal delay-2" style="margin-bottom:20px;">
+          <div style="background:rgba(217,112,112,0.05);border:2px solid rgba(217,112,112,0.2);border-radius:8px;padding:20px 24px;margin-bottom:12px;">
+            <div style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:6px;">Post-filtering = a data leak waiting to happen</div>
+            <div style="font-size:14px;color:var(--text-body);">Log lines, metrics, reranker inputs, or a single bug in the filter layer can expose classified payload.</div>
+          </div>
+          <div style="background:rgba(94,207,176,0.07);border:2px solid rgba(94,207,176,0.25);border-radius:8px;padding:20px 24px;">
+            <div style="font-size:15px;font-weight:700;color:#2ecfae;margin-bottom:6px;">Pre-filtering = mathematical guarantee ✓</div>
+            <div style="font-size:14px;color:var(--text-body);">The DB query itself returns a candidate set excluding forbidden documents. Classified data never enters the pipeline.</div>
+          </div>
+        </div>
+        <div class="code-block reveal delay-3" style="margin-bottom:16px;">
+<span class="fn">qdrant.query_points</span>(
+  collection_name=<span class="str">"tax_corpus"</span>,
+  query=query_vector,
+  limit=<span class="num">40</span>,
+  query_filter=<span class="fn">Filter</span>(
+    must=[
+      <span class="fn">FieldCondition</span>(
+        key=<span class="str">"role_acl"</span>,
+        match=<span class="fn">MatchAny</span>(any=user_roles)
+      ),
+      <span class="cm"># valid_from ≤ today ≤ valid_until</span>
+    ]
+  ),
+)</div>
+        <div class="reveal delay-4" style="background:rgba(217,112,112,0.06);border:1px solid rgba(217,112,112,0.18);border-radius:8px;padding:18px 22px;">
+          <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:4px;">Negative CI test: merge blocker</div>
+          <div style="font-size:14px;color:var(--text-body);">Helpdesk user · 100 FIOD queries · asserts <strong>zero FIOD chunks</strong> at any pipeline stage.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Evaluation Gates -->
+    <div>
+      <div class="section-label reveal">CI/CD Evaluation Gates</div>
+      <h2 class="section-title reveal delay-1" style="margin-bottom:40px;">Eight metrics. <em>All must pass.</em></h2>
+      <div class="two-col">
+        <div class="reveal delay-2" style="border-top:1px solid rgba(0,0,0,0.07);">
+          <div class="metric-row" style="border-top:none;">
+            <div class="metric-name">Faithfulness</div>
+            <div class="metric-tool">Ragas</div>
+            <div class="metric-val teal">≥ 0.92</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">Context Precision</div>
+            <div class="metric-tool">Ragas</div>
+            <div class="metric-val teal">≥ 0.88</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">Context Recall</div>
+            <div class="metric-tool">Ragas</div>
+            <div class="metric-val teal">≥ 0.85</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">Answer Relevancy</div>
+            <div class="metric-tool">Ragas</div>
+            <div class="metric-val teal">≥ 0.90</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">Citation Accuracy</div>
+            <div class="metric-tool">in-house</div>
+            <div class="metric-val blue">≥ 0.98</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">OOS Refusal Rate</div>
+            <div class="metric-tool">DeepEval</div>
+            <div class="metric-val amber">100%</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">RBAC Leak Test</div>
+            <div class="metric-tool">custom</div>
+            <div class="metric-val red">0 leaks</div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-name">P95 TTFT</div>
+            <div class="metric-tool">Locust</div>
+            <div class="metric-val teal">&lt; 1.5 s</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card reveal delay-2" style="border-left:3px solid var(--red);">
+            <div class="card-title" style="font-size:17px;">Merge blockers</div>
+            <div class="card-body">Any regression &gt; 2pp on any quality metric, or any non-zero RBAC leak, blocks the merge immediately. No exceptions.</div>
+          </div>
+          <div class="card reveal delay-3" style="border-left:3px solid var(--amber);">
+            <div class="card-title" style="font-size:17px;">Shadow deployment: 48h</div>
+            <div class="card-body">New models receive 100% of real traffic in shadow mode. Outputs are diff-graded by the grader LLM before going live.</div>
+          </div>
+          <div class="card reveal delay-4" style="border-left:3px solid var(--blue);">
+            <div class="card-title" style="font-size:17px;">Observability stack</div>
+            <div class="card-body">OpenTelemetry traces on every stage · Prometheus latency metrics · Grader label distribution dashboard · Weekly human review of 50 random answers.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- END-TO-END FLOW -->
+<section id="e2e" style="background:var(--navy2);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);">
+  <div class="inner">
+    <div class="section-label reveal" style="color:var(--gold);">Appendix · Happy Path</div>
+    <h2 class="section-title reveal delay-1" style="color:var(--white);margin-bottom:48px;">End-to-End <span class="accent-em">Request Flow</span></h2>
+    <div class="tl-wrap reveal delay-2" style="margin-bottom:40px;">
+      <div class="tl-step">
+        <div class="tl-dot" style="background:rgba(79,158,255,0.15);border-color:rgba(79,158,255,0.4);color:var(--blue);">1</div>
+        <div class="tl-name" style="color:var(--white);">Auth + Cache</div>
+        <div class="tl-time">0 ms</div>
+        <div class="tl-note" style="color:var(--muted);">JWT unpack<br/>Redis lookup</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot" style="background:rgba(79,158,255,0.15);border-color:rgba(79,158,255,0.4);color:var(--blue);">2</div>
+        <div class="tl-name" style="color:var(--white);">Route + Embed</div>
+        <div class="tl-time">~15 ms</div>
+        <div class="tl-note" style="color:var(--muted);">bge-m3<br/>1024-dim</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot" style="background:rgba(79,158,255,0.15);border-color:rgba(79,158,255,0.4);color:var(--blue);">3</div>
+        <div class="tl-name" style="color:var(--white);">Hybrid Retrieval</div>
+        <div class="tl-time">~120 ms</div>
+        <div class="tl-note" style="color:var(--muted);">BM25 + Qdrant<br/>parallel</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot" style="background:rgba(79,158,255,0.15);border-color:rgba(79,158,255,0.4);color:var(--blue);">4</div>
+        <div class="tl-name" style="color:var(--white);">RRF + Rerank</div>
+        <div class="tl-time">~90 ms</div>
+        <div class="tl-note" style="color:var(--muted);">40→6 chunks<br/>A10G GPU</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot" style="background:rgba(79,158,255,0.15);border-color:rgba(79,158,255,0.4);color:var(--blue);">5</div>
+        <div class="tl-name" style="color:var(--white);">Parent Merge</div>
+        <div class="tl-time">~10 ms</div>
+        <div class="tl-note" style="color:var(--muted);">Postgres fetch<br/>full articles</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot" style="background:rgba(232,164,48,0.15);border-color:rgba(232,164,48,0.4);color:var(--amber);">6</div>
+        <div class="tl-name" style="color:var(--white);">Grade</div>
+        <div class="tl-time">~150 ms</div>
+        <div class="tl-note" style="color:var(--muted);">Phi-3-mini local<br/>"Relevant"</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot" style="background:rgba(94,207,176,0.15);border-color:rgba(94,207,176,0.4);color:#5ecfb0;">7</div>
+        <div class="tl-name" style="color:var(--white);">Generate</div>
+        <div class="tl-time">~900 ms</div>
+        <div class="tl-note" style="color:var(--muted);">GPT-NL<br/>first token</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot" style="background:rgba(94,207,176,0.15);border-color:rgba(94,207,176,0.4);color:#5ecfb0;">8</div>
+        <div class="tl-name" style="color:var(--white);">Verify + Cache</div>
+        <div class="tl-time">inline</div>
+        <div class="tl-note" style="color:var(--muted);">Citation check<br/>Redis write</div>
+      </div>
+    </div>
+    <div class="reveal delay-3" style="background:rgba(94,207,176,0.07);border:2px solid rgba(94,207,176,0.3);border-radius:14px;padding:32px 48px;display:flex;justify-content:space-between;align-items:center;gap:40px;">
+      <div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">Total TTFT budget</div>
+        <div style="font-family:var(--display);font-size:64px;font-weight:800;color:#5ecfb0;">&lt; 1.5 s</div>
+      </div>
+      <div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">Answer delivered as</div>
+        <div style="font-size:24px;font-weight:700;color:var(--white);">Streamed response with inline citations</div>
+      </div>
+      <div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:4px;">Traced via</div>
+        <div style="font-size:20px;font-weight:700;color:var(--white);">OpenTelemetry · every stage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 5 BAND -->
+<div class="module-band" id="devops" style="background:var(--navy);">
+  <div class="module-number">05</div>
+  <div class="module-band-inner">
+    <div class="module-eyebrow reveal">Module 5</div>
+    <h2 class="module-headline reveal delay-1">DevOps <em>Readiness</em></h2>
+    <p class="module-desc reveal delay-2">Infrastructure-as-code, Kubernetes resource outline, HA/DR targets, and the full observability stack. Everything a DevOps team needs to begin provisioning the next day.</p>
+  </div>
+</div>
+
+<!-- IaC + K8s -->
+<section style="background:var(--light);">
+  <div class="inner">
+    <div class="two-col" style="margin-bottom:80px;">
+      <div>
+        <div class="section-label reveal">Infrastructure-as-Code</div>
+        <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">Terraform + <em>Helm.</em></h2>
+        <p class="reveal delay-2" style="font-size:16px;line-height:1.8;color:var(--text-body);margin-bottom:24px;">Every service is versioned and deployable without manual steps. Terraform owns cloud resources; Helm charts own Kubernetes workloads on Tier 1.</p>
+        <div class="reveal delay-3" style="display:flex;flex-direction:column;gap:10px;">
+          <div class="card" style="padding:18px 22px;">
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Terraform scope</div>
+            <div style="font-size:14px;color:var(--text-body);">ECR registry, Grafana Cloud workspace, OTel ingest endpoint, VPN gateway (Tier 1 to Tier 2), IAM roles for the CI runner.</div>
+          </div>
+          <div class="card" style="padding:18px 22px;">
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Helm scope</div>
+            <div style="font-size:14px;color:var(--text-body);">Qdrant cluster, FastAPI query server, Phi-3-mini vLLM, Redis, OTel collector DaemonSet. One <span style="font-family:var(--mono);font-size:12px;">values-prod.yaml</span> per environment.</div>
+          </div>
+          <div class="card" style="padding:18px 22px;">
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px;">GitOps flow</div>
+            <div style="font-size:14px;color:var(--text-body);">GitHub Actions builds, evaluates, and pushes images. ArgoCD reconciles Helm releases on the cluster. Merge to <span style="font-family:var(--mono);font-size:12px;">main</span> triggers an automated deploy after all eval gates pass.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label reveal">Kubernetes Resources</div>
+        <h2 class="section-title reveal delay-1" style="margin-bottom:24px;">Requests, Limits, <em>HPA.</em></h2>
+        <div class="reveal delay-2" style="overflow-x:auto;">
+          <table class="data-table" style="font-size:13px;">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>CPU req / lim</th>
+                <th>RAM req / lim</th>
+                <th>Scaling</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><span style="font-family:var(--mono);">fastapi-query</span></td><td>500m / 2</td><td>512Mi / 1Gi</td><td>HPA: CPU 70%, min 2 max 10</td></tr>
+              <tr><td><span style="font-family:var(--mono);">phi3-vllm</span></td><td>4 / 8</td><td>16Gi / 24Gi</td><td>1x A10G, no HPA (GPU-bound)</td></tr>
+              <tr><td><span style="font-family:var(--mono);">qdrant</span></td><td>4 / 8</td><td>48Gi / 64Gi</td><td>StatefulSet, no HPA</td></tr>
+              <tr><td><span style="font-family:var(--mono);">elasticsearch</span></td><td>4 / 8</td><td>16Gi / 24Gi</td><td>StatefulSet, no HPA</td></tr>
+              <tr><td><span style="font-family:var(--mono);">redis</span></td><td>500m / 1</td><td>32Gi / 36Gi</td><td>StatefulSet, no HPA</td></tr>
+              <tr><td><span style="font-family:var(--mono);">otel-collector</span></td><td>200m / 500m</td><td>256Mi / 512Mi</td><td>DaemonSet (one per node)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- HA / DR -->
+    <div style="margin-bottom:80px;">
+      <div class="section-label reveal">High Availability and Disaster Recovery</div>
+      <h2 class="section-title reveal delay-1" style="margin-bottom:32px;">RTO / RPO <em>targets.</em></h2>
+      <div class="reveal delay-2" style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Replication</th>
+              <th>RTO</th>
+              <th>RPO</th>
+              <th>Failover strategy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Qdrant</strong></td>
+              <td>2 shards, replication_factor=2</td>
+              <td>&lt; 60s</td>
+              <td>0</td>
+              <td>Replica promoted automatically; write quorum = 2</td>
+            </tr>
+            <tr>
+              <td><strong>Elasticsearch</strong></td>
+              <td>3 nodes, 1 primary + 1 replica per shard</td>
+              <td>&lt; 30s</td>
+              <td>0</td>
+              <td>Shard rebalancing on node loss; cluster stays green</td>
+            </tr>
+            <tr>
+              <td><strong>Postgres</strong></td>
+              <td>HA pair, synchronous streaming replication</td>
+              <td>&lt; 60s</td>
+              <td>&lt; 5s</td>
+              <td>Patroni leader election; standby promoted within 1 WAL segment</td>
+            </tr>
+            <tr>
+              <td><strong>Redis</strong></td>
+              <td>AOF fsync-every-second + daily RDB snapshot</td>
+              <td>&lt; 30s</td>
+              <td>&lt; 1s</td>
+              <td>Redis Sentinel, 3-node quorum; cache miss on failover is acceptable</td>
+            </tr>
+            <tr>
+              <td><strong>Phi-3-mini vLLM</strong></td>
+              <td>Single A10G (no redundancy in v1)</td>
+              <td>&lt; 3min</td>
+              <td>N/A</td>
+              <td>Pod restart on node failure; system degrades to retrieval-only, grader step skipped</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Observability -->
+    <div>
+      <div class="section-label reveal">Observability Stack</div>
+      <h2 class="section-title reveal delay-1" style="margin-bottom:32px;">Traces, Metrics, <em>Logs.</em></h2>
+      <div class="three-col reveal delay-2" style="margin-bottom:32px;">
+        <div class="card">
+          <div class="card-num">Traces</div>
+          <div class="card-title">OTel + Tempo</div>
+          <div class="card-body">Every pipeline stage emits a span: auth, embed, BM25, Qdrant, RRF, rerank, grade, generate, cache-write. Backend: Grafana Tempo. Sampling: 100% when grader label is Ambiguous or Irrelevant, 10% otherwise.</div>
+        </div>
+        <div class="card">
+          <div class="card-num">Metrics</div>
+          <div class="card-title">Prometheus + Grafana</div>
+          <div class="card-body">Four alert rules: P95 TTFT &gt; 1.5s (page), grader Irrelevant rate &gt; 5% over 10 min (warn), Qdrant RAM &gt; 85% (warn), cache miss rate &gt; 80% sustained (info).</div>
+        </div>
+        <div class="card">
+          <div class="card-num">Logs</div>
+          <div class="card-title">Loki + Promtail</div>
+          <div class="card-body">Structured JSON logs from every pod, scraped by Promtail DaemonSet, stored in Loki. PII-stripped at the OTel collector before export to Tier 2. Retention: 30 days hot, 1 year cold on S3.</div>
+        </div>
+      </div>
+      <div class="reveal delay-3">
+        <div class="code-block">
+<span class="cm"># Alertmanager rules (excerpt)</span>
+- <span class="key">alert</span>: <span class="str">HighTTFT</span>
+  <span class="key">expr</span>: histogram_quantile(<span class="num">0.95</span>, rate(rag_ttft_seconds_bucket[<span class="str">5m</span>])) &gt; <span class="num">1.5</span>
+  <span class="key">severity</span>: <span class="str">page</span>
+
+- <span class="key">alert</span>: <span class="str">GraderIrrelevantSpike</span>
+  <span class="key">expr</span>: rate(grader_label_total{label=<span class="str">"irrelevant"</span>}[<span class="str">10m</span>]) &gt; <span class="num">0.05</span>
+  <span class="key">severity</span>: <span class="str">warning</span>
+
+- <span class="key">alert</span>: <span class="str">QdrantMemoryPressure</span>
+  <span class="key">expr</span>: qdrant_memory_used_bytes / qdrant_memory_limit_bytes &gt; <span class="num">0.85</span>
+  <span class="key">severity</span>: <span class="str">warning</span>
+
+- <span class="key">alert</span>: <span class="str">CacheMissRateHigh</span>
+  <span class="key">expr</span>: rate(semantic_cache_miss_total[<span class="str">30m</span>]) / rate(semantic_cache_total[<span class="str">30m</span>]) &gt; <span class="num">0.80</span>
+  <span class="key">severity</span>: <span class="str">info</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner" style="max-width:700px;margin:0 auto;">
+    <div class="contact-divider reveal"></div>
+    <h2 class="contact-title reveal delay-1">Ready to<br/><span class="accent-em">hire me?</span></h2>
+    <p class="contact-sub reveal delay-2">Working with AI implementations isn't work for me.<br/>It's a passion. If you think I could add value to your team, I would love to join you!</p>
+    <a href="mailto:teo.derizzo@gmail.com" class="contact-email reveal delay-3">teo.derizzo@gmail.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div><img src="cloudnation-logo.png" alt="CloudNation" style="height:32px;width:auto;"/></div>
+  <div class="footer-copy">Technical Case Assignment · Matteo De Rizzo · 2026</div>
+  <div class="footer-links">
+    <a href="index.html">← Portfolio</a>
+    <a href="#devops">DevOps</a>
+    <a href="#module1">Architecture</a>
+  </div>
+</footer>
+
+<!-- TWEAKS PANEL -->
+<div id="tweaks-panel">
+  <h3>Tweaks</h3>
+  <div class="tweak-row">
+    <span class="tweak-label">Accent colour</span>
+    <div class="tweak-control">
+      <select id="tweak-accent" onchange="applyAccent(this.value)">
+        <option value="#1aabdf">CloudNation Blue</option>
+        <option value="#6ea8c8">Slate Blue</option>
+        <option value="#6ec8a9">Teal</option>
+      </select>
+    </div>
+  </div>
+  <div class="tweak-row">
+    <span class="tweak-label">Font scale</span>
+    <div class="tweak-control">
+      <input type="range" id="tweak-scale" min="85" max="115" value="100" oninput="applyScale(this.value)"/>
+    </div>
+  </div>
+</div>
+
+<script>
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+window.addEventListener('message', e => {
+  if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').style.display = 'block';
+  if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').style.display = 'none';
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#1aabdf",
+  "fontScale": 99,
+  "bgColor": "#111111"
+}/*EDITMODE-END*/;
+
+function applyAccent(v) {
+  document.documentElement.style.setProperty('--cyan', v);
+  document.documentElement.style.setProperty('--gold', v);
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accentColor: v } }, '*');
+}
+function applyScale(v) {
+  document.documentElement.style.fontSize = `${v}%`;
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { fontScale: Number(v) } }, '*');
+}
+applyAccent(TWEAK_DEFAULTS.accentColor);
+applyScale(TWEAK_DEFAULTS.fontScale);
+document.getElementById('tweak-accent').value = TWEAK_DEFAULTS.accentColor;
+document.getElementById('tweak-scale').value = TWEAK_DEFAULTS.fontScale;
+</script>
+</body>
+</html>
