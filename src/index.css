@@ -18,8 +18,8 @@ All colors MUST be HSL.
     --popover: 220 13% 22%; /* #393E46 */
     --popover-foreground: 0 0% 93%; /* #EEEEEE */
 
-    /* Primary accent using whitish */
-    --primary: 0 0% 95%; /* #F2F2F2 */
+    /* Primary accent using warm beige from hero portrait background */
+    --primary: 33 20% 70%; /* #C4B5A0 */
     --primary-foreground: 0 0% 8%; /* #141414 */
 
     /* Secondary using the medium blue-gray */
@@ -29,16 +29,16 @@ All colors MUST be HSL.
     --muted: 220 13% 22%; /* #393E46 */
     --muted-foreground: 0 0% 70%;
 
-    /* Accent using the teal */
-    --accent: 183 100% 35%; /* #00ADB5 */
-    --accent-foreground: 0 0% 93%; /* #EEEEEE */
+    /* Accent using the same warm beige (slightly lighter) */
+    --accent: 33 25% 78%; /* #D0C4B2 */
+    --accent-foreground: 0 0% 8%; /* #141414 */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 93%; /* #EEEEEE */
 
     --border: 220 13% 22%; /* #393E46 */
     --input: 220 13% 22%; /* #393E46 */
-    --ring: 0 0% 95%; /* #F2F2F2 */
+    --ring: 33 20% 70%; /* #C4B5A0 */
 
     --radius: 0.75rem;
 
@@ -50,7 +50,7 @@ All colors MUST be HSL.
     --skill-tag: #393E46;
     
     /* Shadows */
-    --shadow-glow: 0 0 40px #F2F2F2 / 0.2;
+    --shadow-glow: 0 0 40px hsl(33 20% 70% / 0.3);
     --shadow-card: 0 8px 32px #222831 / 0.4;
     
     /* Animations */
