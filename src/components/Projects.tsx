@@ -25,27 +25,6 @@ interface Project {
 const projects: Project[] = [
   // Newest work first so recruiters immediately see current capabilities.
   {
-    id: "bar-warehouse-system",
-    title: "Bar Warehouse Database System",
-    subtitle: "Private Production System - Inventory & Operations",
-    description: "Full warehouse and stock management platform for a bar, focused on reliable inventory tracking and daily operations.",
-    fullDescription: "I designed and developed a complete warehouse database system for a bar, covering core workflows like stock intake, consumption tracking, corrections, and operational visibility. The architecture combines a Supabase backend with SQL-driven data modeling and a React frontend for day-to-day usability. Because this is production-related and security-sensitive, the source code is private, but the project demonstrates strong full-stack ownership across schema design, business logic, and user interface implementation.",
-    techStack: ["Supabase", "PostgreSQL", "SQL", "React", "TypeScript"],
-    achievements: [
-      "Designed a relational schema tailored to real inventory and warehouse workflows",
-      "Implemented secure data operations with production-focused access control",
-      "Built clear operational views to support stock decisions and reduce manual errors",
-      "Connected SQL-centered backend logic with a practical React interface"
-    ],
-    // Private codebase by design (security and business reasons).
-    links: [],
-    // Using a neutral placeholder image until a public screenshot is available.
-    images: [
-      "https://placehold.co/1200x675/111827/E5E7EB?text=Bar+Warehouse+Database+System"
-    ],
-    category: "Full-Stack Systems"
-  },
-  {
     id: "chloe-agent",
     title: "Chloe - Autonomous AI Agent",
     subtitle: "Long-Running Agent with Dynamic Personality Routines",
@@ -72,6 +51,31 @@ const projects: Project[] = [
     category: "AI Agents"
   },
   {
+    id: "spotify",
+    title: "Spotify Hit Predictor - 'Will It Hit?'",
+    subtitle: "AI-Powered Music Hit Prediction Platform - Coming Soon",
+    description: "Predict whether your song will become a hit using machine learning and Spotify's audio features (Currently in development)",
+    fullDescription: "Spotify Hit Predictor is an innovative web application that uses machine learning to predict the hit potential of songs based on their audio characteristics. By analyzing features like danceability, energy, valence, and other musical attributes, the platform provides data-driven insights to help artists, producers, and music enthusiasts understand what makes a song successful. The application supports multiple input methods including audio file uploads, CSV data, and Spotify URIs, with real-time processing and detailed analytics. This project is currently in active development.",
+    techStack: ["React", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "Node.js", "Express", "Python", "scikit-learn", "XGBoost", "Spotify API", "OAuth 2.0"],
+    achievements: [
+      "Multiple input methods: audio files, CSV data, and Spotify URIs",
+      "AI-powered predictions with >80% accuracy on test datasets",
+      "Real-time processing with progress indicators",
+      "Modern responsive UI built with shadcn/ui components",
+      "Secure OAuth 2.0 authentication with Spotify",
+      "Comprehensive audio feature analysis and visualization"
+    ],
+    links: [
+      { label: "Live Demo", url: "https://predict-my-hit.lovable.app", icon: <ExternalLink className="h-4 w-4" /> }
+    ],
+    images: [
+      "https://i.postimg.cc/DyfbCJn2/Spotify-089b80c169d44fcfa110aebc6801289f.png",
+      "https://i.postimg.cc/yxsnp1Yw/Screenshot-from-2025-08-04-17-40-41.png",
+      "https://i.postimg.cc/kgBsphqX/Screenshot-from-2025-08-04-17-41-17.png"
+    ],
+    category: "AI & Machine Learning"
+  },
+  {
     id: "get-my-life-in-order",
     title: "Get My Life in Order",
     subtitle: "Visual Task Verification Pipeline with LLMs",
@@ -96,29 +100,25 @@ const projects: Project[] = [
     category: "AI Automation"
   },
   {
-    id: "spotify",
-    title: "Spotify Hit Predictor - 'Will It Hit?'",
-    subtitle: "AI-Powered Music Hit Prediction Platform - Coming Soon",
-    description: "Predict whether your song will become a hit using machine learning and Spotify's audio features (Currently in development)",
-    fullDescription: "Spotify Hit Predictor is an innovative web application that uses machine learning to predict the hit potential of songs based on their audio characteristics. By analyzing features like danceability, energy, valence, and other musical attributes, the platform provides data-driven insights to help artists, producers, and music enthusiasts understand what makes a song successful. The application supports multiple input methods including audio file uploads, CSV data, and Spotify URIs, with real-time processing and detailed analytics. This project is currently in active development.",
-    techStack: ["React", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "Node.js", "Express", "Python", "scikit-learn", "XGBoost", "Spotify API", "OAuth 2.0"],
+    id: "bar-warehouse-system",
+    title: "Bar Warehouse Database System",
+    subtitle: "Private Production System - Inventory & Operations",
+    description: "Full warehouse and stock management platform for a bar, focused on reliable inventory tracking and daily operations.",
+    fullDescription: "I designed and developed a complete warehouse database system for a bar, covering core workflows like stock intake, consumption tracking, corrections, and operational visibility. The architecture combines a Supabase backend with SQL-driven data modeling and a React frontend for day-to-day usability. Because this is production-related and security-sensitive, the source code is private, but the project demonstrates strong full-stack ownership across schema design, business logic, and user interface implementation.",
+    techStack: ["Supabase", "PostgreSQL", "SQL", "React", "TypeScript"],
     achievements: [
-      "Multiple input methods: audio files, CSV data, and Spotify URIs",
-      "AI-powered predictions with >80% accuracy on test datasets",
-      "Real-time processing with progress indicators",
-      "Modern responsive UI built with shadcn/ui components",
-      "Secure OAuth 2.0 authentication with Spotify",
-      "Comprehensive audio feature analysis and visualization"
+      "Designed a relational schema tailored to real inventory and warehouse workflows",
+      "Implemented secure data operations with production-focused access control",
+      "Built clear operational views to support stock decisions and reduce manual errors",
+      "Connected SQL-centered backend logic with a practical React interface"
     ],
-    links: [
-      { label: "Live Demo", url: "https://predict-my-hit.lovable.app", icon: <ExternalLink className="h-4 w-4" /> }
-    ],
+    // Private codebase by design (security and business reasons).
+    links: [],
+    // Using a more appealing warehouse image for the project preview.
     images: [
-      "https://i.postimg.cc/DyfbCJn2/Spotify-089b80c169d44fcfa110aebc6801289f.png",
-      "https://i.postimg.cc/yxsnp1Yw/Screenshot-from-2025-08-04-17-40-41.png",
-      "https://i.postimg.cc/kgBsphqX/Screenshot-from-2025-08-04-17-41-17.png"
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80"
     ],
-    category: "AI & Machine Learning"
+    category: "Full-Stack Systems"
   },
   {
     id: "raglite",
