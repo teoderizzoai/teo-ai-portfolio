@@ -1,4 +1,6 @@
 {
+  "buildCommand": null,
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/cloudnation", "destination": "/cloudnation/index.html" },
     { "source": "/cloudnation/(.*)", "destination": "/cloudnation/$1" }
