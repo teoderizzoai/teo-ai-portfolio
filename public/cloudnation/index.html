@@ -1086,18 +1086,18 @@ footer {
     <div class="about-left">
       <div class="section-label reveal">CloudNation · Data &amp; AI</div>
       <h2 class="section-title reveal delay-1">Accelerating<br/>IT transformations<br/><span class="accent-em">with AI.</span></h2>
-      <p class="about-body reveal delay-2">
+      <div class="about-body reveal delay-2">
         <p>This is my technical case assignment for the CloudNation AI team. The brief: design and architect an enterprise
         RAG system for the National Tax Authority.</p>
         <p>I chose to go beyond a written proposal: building a working prototype with
         real pipeline traces, a CI evaluation harness, and this interactive presentation.
         Every architectural decision is documented and justified.</p>
-      </p>
+      </div>
     </div>
     <div class="about-right">
       <blockquote class="about-quote reveal delay-1">
         "The system refuses before it guesses. That is not a limitation: it is the design."
-        <cite>: Architecture Principle #1, Matteo De Rizzo</cite>
+        <cite>Architecture Principle #1 · Matteo De Rizzo</cite>
       </blockquote>
       <div class="about-capabilities">
         <div class="capability-row reveal delay-2">
@@ -1302,7 +1302,7 @@ footer {
               <div class="module-name">RBAC & Security</div>
               <div class="module-desc">RBAC enforced as a Qdrant pre-filter: a mathematical guarantee, not a procedural check. Semantic cache keyed on role + fiscal year. RBAC leak tests are hard CI/CD merge blockers.</div>
             </div>
-            <div class="module-status status-active">Live</div>
+            <div class="module-status status-done">Complete</div>
           </div>
           <div class="module-row">
             <div class="module-num">05</div>
@@ -1310,7 +1310,7 @@ footer {
               <div class="module-name">DevOps, CI/CD & Observability</div>
               <div class="module-desc">GitHub Actions eval gates, Grafana dashboards, OpenTelemetry tracing end-to-end. Two-tier deployment: data and inference on Rijkswolk, all DevOps tooling on AWS eu-central-1. Runbooks included.</div>
             </div>
-            <div class="module-status status-active">Live</div>
+            <div class="module-status status-done">Complete</div>
           </div>
         </div>
 
@@ -1431,11 +1431,11 @@ footer {
   <div style="max-width:1400px;margin:0 auto;">
 
     <div class="section-label reveal">Hypothetical · Standard GDPR Only</div>
-    <h2 class="section-title reveal delay-1" style="margin-bottom:16px;">If standard GDPR<br/>is the only bar:<br/><span class="accent-em">fully cloud.</span></h2>
+    <h2 class="section-title reveal delay-1" style="margin-bottom:16px;">If standard GDPR<br/>is the only bar:<br/><span class="accent-em">mostly cloud.</span></h2>
     <p class="reveal delay-2" style="font-size:17px;font-weight:400;line-height:1.85;color:var(--text-body);max-width:680px;margin-bottom:64px;">
       The hybrid design exists because the data is sensitive and the client is a government entity requiring jurisdictional sovereignty (Rijkswolk), not just EU data residency.
       Strip that down to a commercial SaaS product or private-sector knowledge base where standard GDPR data-residency is the only bar to clear, and the architecture collapses into a
-      single AWS region, fully managed, zero servers to babysit. Bedrock and OpenSearch run in eu-west-1 or eu-central-1; data stays EU-resident throughout.
+      single AWS region, almost entirely managed, with one local inference component for grading and routing. Bedrock and OpenSearch run in eu-west-1 or eu-central-1; data stays EU-resident throughout.
       Here's what that looks like.
     </p>
 
@@ -1483,7 +1483,7 @@ footer {
         <div style="display:flex;flex-direction:column;gap:14px;">
           <div>
             <div style="font-family:var(--mono);font-size:12px;font-weight:600;color:#5ecfb0;margin-bottom:4px;">Amazon Bedrock: Claude 3.5 Sonnet</div>
-            <div style="font-size:14px;color:var(--text-body);line-height:1.7;">Final generation. Replaces both GPT-NL and the local Phi-3-mini. No GPU nodes to manage, pay-per-token, streaming supported.</div>
+            <div style="font-size:14px;color:var(--text-body);line-height:1.7;">Final generation. Replaces GPT-NL. No generation-side GPU to manage, pay-per-token, streaming supported.</div>
           </div>
           <div>
             <div style="font-family:var(--mono);font-size:12px;font-weight:600;color:#5ecfb0;margin-bottom:4px;">Amazon Bedrock: Titan Embeddings v2</div>
@@ -1535,7 +1535,7 @@ footer {
       <div style="background:rgba(46,180,140,0.05);border:1px solid rgba(46,180,140,0.15);border-radius:10px;padding:32px 28px;">
         <div style="font-size:16px;font-weight:700;color:#2a9d7c;margin-bottom:16px;">What changes</div>
         <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--text-body);line-height:1.75;">
-          <div style="display:flex;gap:10px;"><span style="color:#2a9d7c;margin-top:2px;">→</span><span>Zero GPU nodes to provision or maintain. Bedrock and SageMaker Serverless handle all inference.</span></div>
+          <div style="display:flex;gap:10px;"><span style="color:#2a9d7c;margin-top:2px;">→</span><span>One GPU node to maintain instead of a full inference fleet. Bedrock and SageMaker Serverless handle final generation, embedding, and reranking; only the local Phi-3-mini grader stays on a small A10G.</span></div>
           <div style="display:flex;gap:10px;"><span style="color:#2a9d7c;margin-top:2px;">→</span><span>No Qdrant cluster ops, no Elasticsearch shard management, no Postgres HA tuning.</span></div>
           <div style="display:flex;gap:10px;"><span style="color:#2a9d7c;margin-top:2px;">→</span><span>Ingestion pipeline becomes a Step Functions state machine: retries, fan-out, and dead-letter queues for free.</span></div>
           <div style="display:flex;gap:10px;"><span style="color:#2a9d7c;margin-top:2px;">→</span><span>Cost model flips from fixed CapEx (servers, GPU nodes) to variable OpEx (token usage, request count).</span></div>
@@ -1666,14 +1666,14 @@ const SCENARIOS = [
       fused:8, boosted:0, ranked:6,
       blocked:["fiod_handboek#art_4.2#lid_1","fiod_handboek#art_4.3#lid_1"],
       chunks:[
-        {rank:1,id:"wet_ib_2001#art_5.2#lid_1",score:"0.3000",src:"bm25+dense+rer"},
-        {rank:2,id:"wet_ib_2001#art_2.10#lid_2",score:"0.2632",src:"bm25+dense+rer"},
-        {rank:3,id:"wet_ib_2001#art_2.10#lid_1",score:"0.2500",src:"bm25+dense+rer"},
+        {rank:1,id:"wet_ib_2001#art_2.10#lid_2",score:"0.3000",src:"bm25+dense+rer"},
+        {rank:2,id:"wet_ib_2001#art_2.10#lid_1",score:"0.2632",src:"bm25+dense+rer"},
+        {rank:3,id:"wet_ib_2001#art_5.2#lid_1",score:"0.2500",src:"bm25+dense+rer"},
         {rank:4,id:"policy_btw_2024#art_9#lid_1",score:"0.1579",src:"bm25+dense+rer"}
       ]
     },
-    answer: "Box 3 sparen en beleggen: Het forfaitair rendement voor 2024 bedraagt 6.04% over het belastbaar vermogen boven de heffingvrij vermogen van €57.000. Box 1 tweede belastingschijf: Het tarief bedraagt 49.50% voor het jaar 2024.",
-    citations:["Wet IB 2001, art. 5.2, lid 1","Wet IB 2001, art. 2.10, lid 2","Wet IB 2001, art. 2.10, lid 1"]
+    answer: "Box 1 tweede belastingschijf: Het tarief bedraagt 49.50% voor het jaar 2024. Box 3 sparen en beleggen: Het forfaitair rendement voor 2024 bedraagt 6.04% over het belastbaar vermogen boven het heffingvrij vermogen van €57.000.",
+    citations:["Wet IB 2001, art. 2.10, lid 2","Wet IB 2001, art. 2.10, lid 1","Wet IB 2001, art. 5.2, lid 1"]
   },
   {
     id: 2,
@@ -1689,8 +1689,8 @@ const SCENARIOS = [
       {step:"semantic cache",val:"HIT ✓: CRAG not invoked",color:"teal"}
     ],
     retrieval: null,
-    answer: "Box 3 sparen en beleggen: Het forfaitair rendement voor 2024 bedraagt 6.04% over het belastbaar vermogen boven de heffingvrij vermogen van €57.000. Box 1 tweede belastingschijf: Het tarief bedraagt 49.50% voor het jaar 2024.",
-    citations:["Wet IB 2001, art. 5.2, lid 1","Wet IB 2001, art. 2.10, lid 2","Wet IB 2001, art. 2.10, lid 1"]
+    answer: "Box 1 tweede belastingschijf: Het tarief bedraagt 49.50% voor het jaar 2024. Box 3 sparen en beleggen: Het forfaitair rendement voor 2024 bedraagt 6.04% over het belastbaar vermogen boven het heffingvrij vermogen van €57.000.",
+    citations:["Wet IB 2001, art. 2.10, lid 2","Wet IB 2001, art. 2.10, lid 1","Wet IB 2001, art. 5.2, lid 1"]
   },
   {
     id: 3,
@@ -2029,7 +2029,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="principles-inner">
     <div style="max-width:600px;">
       <div class="section-label reveal">Our Approach</div>
-      <h2 class="section-title reveal delay-1">Three rules that<br/>drive every<br/><span class="accent-em">decision.</span></h2>
+      <h2 class="section-title reveal delay-1">Four rules that<br/>drive every<br/><span class="accent-em">decision.</span></h2>
     </div>
     <div class="principles-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
       <div class="principle-card reveal delay-1">
@@ -2062,7 +2062,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="contact-divider reveal"></div>
     <h2 class="contact-title reveal delay-1">Ready to<br/><span class="accent-em">hire me?</span></h2>
     <p class="contact-sub reveal delay-2">
-      Working with AI implementations in not work for me.<br/> It is a passion. <br/>If you think I could add value to your team, I would love to join you!
+      Building AI systems is not just work for me. It is a passion.<br/>If you think I could add value to your team, I would love to join you.
     </p>
     <a href="mailto:teo.derizzo@gmail.com" class="contact-email reveal delay-3">teo.derizzo@gmail.com</a>
   </div>
