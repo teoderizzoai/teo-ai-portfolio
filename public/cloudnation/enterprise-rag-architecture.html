@@ -721,7 +721,7 @@ footer { background:var(--navy); border-top:1px solid rgba(255,255,255,0.05); pa
           </div>
           <div style="background:rgba(26,171,223,0.06);border:1px solid rgba(26,171,223,0.18);border-radius:8px;padding:16px 20px;">
             <div style="font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;">Implementation note</div>
-            <div style="font-size:14px;color:var(--text-body);line-height:1.7;">0.97 is a <strong>starting point</strong>, not a fixed value. Once the application is live, cache hit/miss logs and user feedback should drive empirical tuning; the right threshold is corpus- and query-distribution-specific.</div>
+            <div style="font-size:14px;color:var(--text-body);line-height:1.7;">0.97 is an <strong>educated starting point</strong> based on the failure examples above — queries with cosine similarity below 0.97 produced meaningfully different answers in testing. It is not a fixed value: once the application is live, cache hit/miss logs and user feedback should drive empirical tuning. The right threshold depends on your corpus and query distribution.</div>
           </div>
         </div>
         <div class="reveal delay-4" style="display:flex;flex-direction:column;gap:10px;">
